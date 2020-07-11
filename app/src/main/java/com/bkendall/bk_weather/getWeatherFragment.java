@@ -19,9 +19,13 @@ import java.io.IOException;
 public class getWeatherFragment extends Fragment {
     TextView currentWeather;
     Handler handler;
+    String latitude;
+    String longitude;
 
 
-    public getWeatherFragment(){
+    public getWeatherFragment(double lat, double lon){
+        latitude = String.valueOf(lat);
+        longitude = String.valueOf(lon);
         handler = new Handler();
     }
 
@@ -42,7 +46,7 @@ public class getWeatherFragment extends Fragment {
         new Thread(){
             public void run(){
                 try {
-                    final JSONObject json = FetchWeather.getCurrentTemp();
+                    final JSONObject json = FetchWeather.getCurrentTemp(latitude, longitude);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

@@ -10,12 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class FetchWeather {
-    public static JSONObject getCurrentTemp() throws IOException, JSONException {
-        String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&appid=291efc48fb9da8553ff4560029db809f&units=imperial";
+    public static JSONObject getCurrentTemp(String latitude, String longitude) throws IOException, JSONException {
+        String OPEN_WEATHER_MAP_API = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=imperial";
 
-        URL weatherURL = new URL(String.format(OPEN_WEATHER_MAP_API, "Francestown"));
+        URL weatherURL = new URL(String.format(OPEN_WEATHER_MAP_API, latitude, longitude));
         HttpURLConnection weather = (HttpURLConnection) weatherURL.openConnection();
-        // weather.addRequestProperty("x-api-key", "291efc48fb9da8553ff4560029db809f");
+        weather.addRequestProperty("x-api-key", "291efc48fb9da8553ff4560029db809f");
         BufferedReader readWeather = new BufferedReader(new InputStreamReader(weather.getInputStream()));
 
         return new JSONObject(readWeather.readLine());
