@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class FetchWeather {
-    public static JSONObject getCurrentTemp(String latitude, String longitude) throws IOException, JSONException {
+class FetchWeather {
+    static JSONObject getCurrentTemp(String latitude, String longitude) throws IOException, JSONException {
         String OPEN_WEATHER_MAP_API = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=imperial";
 
         URL weatherURL = new URL(String.format(OPEN_WEATHER_MAP_API, latitude, longitude));

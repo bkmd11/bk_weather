@@ -17,13 +17,13 @@ import java.io.IOException;
 
 
 public class getWeatherFragment extends Fragment {
-    TextView currentWeather;
-    Handler handler;
-    String latitude;
-    String longitude;
+    private TextView currentWeather;
+    private Handler handler;
+    private String latitude;
+    private String longitude;
 
 
-    public getWeatherFragment(double lat, double lon){
+    getWeatherFragment(double lat, double lon){
         latitude = String.valueOf(lat);
         longitude = String.valueOf(lon);
         handler = new Handler();
@@ -68,8 +68,11 @@ public class getWeatherFragment extends Fragment {
     }
 
     private void renderWeather(JSONObject weatherData) throws JSONException {
+        String current_temp = "Current Temp: ";
         JSONObject main = new JSONObject(weatherData.getJSONObject("main").toString());
-        currentWeather.setText(main.getString("temp"));
+
+        current_temp = current_temp.concat(main.getString("temp"));
+        currentWeather.setText(current_temp);
     }
 
 
