@@ -24,16 +24,22 @@ public class MainActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+           //TODO add a screen to request permission
             return;
         }
-
         assert lm != null;
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        assert location != null;
-        lat = location.getLatitude();
-        lon = location.getLongitude();
 
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location ==null){
+            lat = 90.000;
+            lon = 135.000;
+        }
+        else {
+            lat = location.getLatitude();
+            lon = location.getLongitude();
+        }
 
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()

@@ -21,6 +21,7 @@ public class getWeatherFragment extends Fragment {
     private Handler handler;
     private String latitude;
     private String longitude;
+    private String api_key = getString(R.string.api_key);
 
 
     getWeatherFragment(double lat, double lon){
@@ -46,7 +47,7 @@ public class getWeatherFragment extends Fragment {
         new Thread(){
             public void run(){
                 try {
-                    final JSONObject json = FetchWeather.getCurrentTemp(latitude, longitude);
+                    final JSONObject json = FetchWeather.getCurrentTemp(latitude, longitude, api_key);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -64,11 +65,10 @@ public class getWeatherFragment extends Fragment {
                 }
             }
         }.start();
-
     }
 
     private void renderWeather(JSONObject weatherData) throws JSONException {
-        String current_temp = "Current Temp: ";
+        String current_temp = "Current Temp:\n";
         JSONObject main = new JSONObject(weatherData.getJSONObject("main").toString());
 
         current_temp = current_temp.concat(main.getString("temp"));
