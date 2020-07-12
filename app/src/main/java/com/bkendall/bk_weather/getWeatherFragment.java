@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class getWeatherFragment extends Fragment {
     private TextView currentWeather;
+    private TextView location;
     private Handler handler;
     private String latitude;
     private String longitude;
@@ -32,7 +33,9 @@ public class getWeatherFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         View rootView = inflater.inflate(R.layout.fragment_get_weather, container, false);
+        location = (TextView)rootView.findViewById(R.id.current_location);
         currentWeather = (TextView)rootView.findViewById(R.id.current_temp);
+
 
         return rootView;
     }
@@ -68,10 +71,10 @@ public class getWeatherFragment extends Fragment {
     }
 
     private void renderWeather(JSONObject weatherData) throws JSONException {
-        String current_temp = "Current Temp:\n";
-        JSONObject main = new JSONObject(weatherData.getJSONObject("main").toString());
+        String current_location = BuildWeatherString.currentLocation(weatherData);
+        String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject("main"));
 
-        current_temp = current_temp.concat(main.getString("temp"));
+        location.setText(current_location);
         currentWeather.setText(current_temp);
     }
 

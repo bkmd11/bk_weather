@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">bk_weather</string>
-
+    <string name="location">current_location</string>
     <string name="current_temp">current_temp</string>
 </resources>
