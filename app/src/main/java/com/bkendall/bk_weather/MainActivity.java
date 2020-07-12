@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         double lat;
         double lon;
+        String api_key = getString(R.string.api_key);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(this,
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.containter, new getWeatherFragment(lat, lon))
+                    .add(R.id.containter, new getWeatherFragment(lat, lon, api_key))
                     .commit();
         }
     }
