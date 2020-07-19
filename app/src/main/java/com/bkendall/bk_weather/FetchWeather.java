@@ -13,8 +13,9 @@ class FetchWeather {
 
     // I make a call to the API and return a 5 day forecast
     static JSONObject getForecast(String latitude, String longitude, String api_key) throws IOException, JSONException {
-        String OPEN_WEATHER_MAP_API =
-                "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely,hourly&units=imperial";
+        String OPEN_WEATHER_MAP_API = //String.valueOf(R.string.url);
+               "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=minutely,hourly&units=imperial";
+       // System.out.println(OPEN_WEATHER_MAP_API);
 
         URL weatherURL = new URL(String.format(OPEN_WEATHER_MAP_API, latitude, longitude));
         HttpURLConnection weather = (HttpURLConnection) weatherURL.openConnection();

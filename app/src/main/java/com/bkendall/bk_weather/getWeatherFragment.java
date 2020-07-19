@@ -21,6 +21,7 @@ public class getWeatherFragment extends Fragment {
     private TextView currentWeather;
     private TextView tomorrow;
     private TextView two_day;
+    private TextView three_day;
     private Handler handler;
     private String latitude;
     private String longitude;
@@ -39,7 +40,7 @@ public class getWeatherFragment extends Fragment {
         currentWeather = (TextView)rootView.findViewById(R.id.current_temp);
         tomorrow = (TextView)rootView.findViewById(R.id.tomorrow);
         two_day = (TextView)rootView.findViewById(R.id.two_day);
-
+        three_day = (TextView)rootView.findViewById(R.id.three_day);
 
         return rootView;
     }
@@ -80,11 +81,12 @@ public class getWeatherFragment extends Fragment {
         String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject("current"));
         String tomorrow_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray("daily").getJSONObject(1));
         String two_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray("daily").getJSONObject(2));
-
+        String three_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray("daily").getJSONObject(3));
         //location.setText(current_location);
         currentWeather.setText(current_temp);
         tomorrow.setText(tomorrow_forecast);
         two_day.setText(two_days_out);
+        three_day.setText(three_days_out);
 
     }
 

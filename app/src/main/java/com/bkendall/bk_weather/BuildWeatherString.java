@@ -10,11 +10,16 @@ import java.util.Date;
 
 public class BuildWeatherString {
     // I return the current temp from a json object
-    static String currentWeather(JSONObject main) throws JSONException {
-        String current_temp = "Current Temp: ";
-        double temp = main.getDouble("temp");
+    static String currentWeather(JSONObject currentWeather) throws JSONException {
+        String current_temp = "Current Weather\n";
+        JSONObject conditions = currentWeather.getJSONArray("weather").getJSONObject(0);
+
+        String description = conditions.getString("description");
+
+        double temp = currentWeather.getDouble("temp");
         temp = (int) temp;
 
+        current_temp = current_temp.concat(description + "\n");
         current_temp = current_temp.concat(String.valueOf(temp));
 
         return current_temp;
@@ -39,6 +44,8 @@ public class BuildWeatherString {
 
         JSONObject temp = json.getJSONObject("temp");
         double max_temp = temp.getDouble("max");
+
+        max_temp = (int) max_temp;
 
         JSONObject description = json.getJSONArray("weather").getJSONObject(0);
         String coniditions = description.getString("description");

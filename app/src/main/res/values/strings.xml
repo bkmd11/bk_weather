@@ -4,4 +4,8 @@
     <string name="current_temp">current_temp</string>
     <string name="tomorrow">tomorrow</string>
     <string name="two_day">two_day</string>
+    <string name="three_day">three_day</string>
+
+
+    <string name="url">"https://api.openweathermap.org/data/2.5/onecall?lat=%s&amp;lon=%s&amp;exclude=minutely,hourly&amp;units=imperial"</string>
 </resources>
