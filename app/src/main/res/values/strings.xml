@@ -2,4 +2,6 @@
     <string name="app_name">bk_weather</string>
     <string name="location">current_location</string>
     <string name="current_temp">current_temp</string>
+    <string name="tomorrow">tomorrow</string>
+    <string name="two_day">two_day</string>
 </resources>

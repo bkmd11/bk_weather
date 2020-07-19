@@ -17,8 +17,10 @@ import java.io.IOException;
 
 
 public class getWeatherFragment extends Fragment {
-    private TextView currentWeather;
     private TextView location;
+    private TextView currentWeather;
+    private TextView tomorrow;
+    private TextView two_day;
     private Handler handler;
     private String latitude;
     private String longitude;
@@ -35,6 +37,8 @@ public class getWeatherFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_get_weather, container, false);
         location = (TextView)rootView.findViewById(R.id.current_location);
         currentWeather = (TextView)rootView.findViewById(R.id.current_temp);
+        tomorrow = (TextView)rootView.findViewById(R.id.tomorrow);
+        two_day = (TextView)rootView.findViewById(R.id.two_day);
 
 
         return rootView;
@@ -50,7 +54,7 @@ public class getWeatherFragment extends Fragment {
         new Thread(){
             public void run(){
                 try {
-                    final JSONObject json = FetchWeather.getCurrentTemp(latitude, longitude, secret_api_key);
+                    final JSONObject json = FetchWeather.getForecast(latitude, longitude, secret_api_key);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -70,12 +74,18 @@ public class getWeatherFragment extends Fragment {
         }.start();
     }
 
+    // I am the method for populating the textviews
     private void renderWeather(JSONObject weatherData) throws JSONException {
-        String current_location = BuildWeatherString.currentLocation(weatherData);
-        String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject("main"));
+        //String current_location = BuildWeatherString.currentLocation(weatherData);
+        String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject("current"));
+        String tomorrow_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray("daily").getJSONObject(1));
+        String two_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray("daily").getJSONObject(2));
 
-        location.setText(current_location);
+        //location.setText(current_location);
         currentWeather.setText(current_temp);
+        tomorrow.setText(tomorrow_forecast);
+        two_day.setText(two_days_out);
+
     }
 
 

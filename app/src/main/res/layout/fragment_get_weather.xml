@@ -12,7 +12,6 @@
             android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginVertical="30sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="40sp"/>
@@ -21,10 +20,25 @@
             android:id="@+id/current_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="32sp"
+            android:layout_marginVertical="15sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/tomorrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="32sp" />
+
+    <TextView
+        android:id="@+id/two_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="32sp" />
 
 
 
