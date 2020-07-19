@@ -25,14 +25,15 @@ public class BuildWeatherString {
         return current_temp;
     }
 
+    //TODO get location from gps
     // I get the current location
  //   static String currentLocation(JSONObject json) throws JSONException {
-        //TODO get location from gps
    //     String location = json.getString("name");
 
      //   return location;
    // }
 
+    //TODO add high/low
     // I build the extended forecast
     static String futureForecast(JSONObject json) throws JSONException {
         String forecast = "";

@@ -75,6 +75,7 @@ public class getWeatherFragment extends Fragment {
             }
         }.start();
     }
+    //TODO add today
 
     // I am the method for populating the textviews
     private void renderWeather(JSONObject weatherData) throws JSONException {

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-           //TODO add a screen to request permission
             return;
         }
         assert lm != null;
