@@ -33,7 +33,6 @@ public class BuildWeatherString {
      //   return location;
    // }
 
-    //TODO add high/low
     // I build the extended forecast
     static String futureForecast(JSONObject json) throws JSONException {
         String forecast = "";
@@ -45,15 +44,18 @@ public class BuildWeatherString {
 
         JSONObject temp = json.getJSONObject("temp");
         double max_temp = temp.getDouble("max");
+        double min_temp = temp.getDouble("min");
 
         max_temp = (int) max_temp;
+        min_temp = (int) min_temp;
 
         JSONObject description = json.getJSONArray("weather").getJSONObject(0);
         String coniditions = description.getString("description");
 
         forecast = forecast.concat(weekday + "\n");
         forecast = forecast.concat(coniditions + "\n");
-        forecast = forecast.concat("Temp: " + max_temp);
+        forecast = forecast.concat("High: " + max_temp + "\n");
+        forecast = forecast.concat("Low: " + min_temp);
 
         return forecast;
     }

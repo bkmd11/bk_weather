@@ -40,12 +40,12 @@ public class getWeatherFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         View rootView = inflater.inflate(R.layout.fragment_get_weather, container, false);
-      //  location = (TextView)rootView.findViewById(R.id.current_location);
-        currentWeather = (TextView)rootView.findViewById(R.id.current_temp);
-        this_day = (TextView)rootView.findViewById(R.id.this_day);
-        tomorrow = (TextView)rootView.findViewById(R.id.tomorrow);
-        two_day = (TextView)rootView.findViewById(R.id.two_day);
-        three_day = (TextView)rootView.findViewById(R.id.three_day);
+      //  location = rootView.findViewById(R.id.current_location);
+        currentWeather = rootView.findViewById(R.id.current_temp);
+        this_day = rootView.findViewById(R.id.this_day);
+        tomorrow = rootView.findViewById(R.id.tomorrow);
+        two_day = rootView.findViewById(R.id.two_day);
+        three_day = rootView.findViewById(R.id.three_day);
 
         return rootView;
     }
