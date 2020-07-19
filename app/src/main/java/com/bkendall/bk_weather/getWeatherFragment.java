@@ -19,10 +19,13 @@ import java.io.IOException;
 public class getWeatherFragment extends Fragment {
    // private TextView location;
     private TextView currentWeather;
+    private TextView this_day;
     private TextView tomorrow;
     private TextView two_day;
     private TextView three_day;
+
     private Handler handler;
+
     private String latitude;
     private String longitude;
     private String secret_api_key;
@@ -39,6 +42,7 @@ public class getWeatherFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_get_weather, container, false);
       //  location = (TextView)rootView.findViewById(R.id.current_location);
         currentWeather = (TextView)rootView.findViewById(R.id.current_temp);
+        this_day = (TextView)rootView.findViewById(R.id.this_day);
         tomorrow = (TextView)rootView.findViewById(R.id.tomorrow);
         two_day = (TextView)rootView.findViewById(R.id.two_day);
         three_day = (TextView)rootView.findViewById(R.id.three_day);
@@ -75,7 +79,6 @@ public class getWeatherFragment extends Fragment {
             }
         }.start();
     }
-    //TODO add today
 
     // I am the method for populating the textviews
     private void renderWeather(JSONObject weatherData) throws JSONException {
@@ -85,11 +88,14 @@ public class getWeatherFragment extends Fragment {
 
         //String current_location = BuildWeatherString.currentLocation(weatherData);
         String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject(today));
+        String today_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(0));
         String tomorrow_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(1));
         String two_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(2));
         String three_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(3));
+
         //location.setText(current_location);
         currentWeather.setText(current_temp);
+        this_day.setText(today_forecast);
         tomorrow.setText(tomorrow_forecast);
         two_day.setText(two_days_out);
         three_day.setText(three_days_out);
