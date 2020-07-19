@@ -26,12 +26,12 @@ public class BuildWeatherString {
     }
 
     // I get the current location
-    static String currentLocation(JSONObject json) throws JSONException {
+ //   static String currentLocation(JSONObject json) throws JSONException {
         //TODO get location from gps
-        String location = json.getString("name");
+   //     String location = json.getString("name");
 
-        return location;
-    }
+     //   return location;
+   // }
 
     // I build the extended forecast
     static String futureForecast(JSONObject json) throws JSONException {

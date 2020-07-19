@@ -17,7 +17,7 @@ import java.io.IOException;
 
 
 public class getWeatherFragment extends Fragment {
-    private TextView location;
+   // private TextView location;
     private TextView currentWeather;
     private TextView tomorrow;
     private TextView two_day;
@@ -27,8 +27,6 @@ public class getWeatherFragment extends Fragment {
     private String longitude;
     private String secret_api_key;
 
-    private String dailyWeather = getString(R.string.daily);
-    private String today = getString(R.string.today);
 
     getWeatherFragment(double lat, double lon, String api_key){
         latitude = String.valueOf(lat);
@@ -39,7 +37,7 @@ public class getWeatherFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         View rootView = inflater.inflate(R.layout.fragment_get_weather, container, false);
-        location = (TextView)rootView.findViewById(R.id.current_location);
+      //  location = (TextView)rootView.findViewById(R.id.current_location);
         currentWeather = (TextView)rootView.findViewById(R.id.current_temp);
         tomorrow = (TextView)rootView.findViewById(R.id.tomorrow);
         two_day = (TextView)rootView.findViewById(R.id.two_day);
@@ -80,6 +78,10 @@ public class getWeatherFragment extends Fragment {
 
     // I am the method for populating the textviews
     private void renderWeather(JSONObject weatherData) throws JSONException {
+
+        String dailyWeather = getString(R.string.daily);
+        String today = getString(R.string.today);
+
         //String current_location = BuildWeatherString.currentLocation(weatherData);
         String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject(today));
         String tomorrow_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(1));
