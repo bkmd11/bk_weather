@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location ==null){
-            lat = 42.9876;
-            lon = 71.8126;
+            lat = -1.0;
+            lon = -1.0;
         }
         else {
             lat = location.getLatitude();

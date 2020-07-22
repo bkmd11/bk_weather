@@ -65,7 +65,12 @@ public class getWeatherFragment extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                renderWeather(json);
+                                if (latitude.equals("-1.0") && longitude.equals("-1.0")) {
+                                    currentWeather.setText("ERROR:\nNo GPS data");
+                                }
+                                else {
+                                    renderWeather(json);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
