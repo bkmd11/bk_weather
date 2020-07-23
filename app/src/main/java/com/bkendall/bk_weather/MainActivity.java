@@ -32,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         }
         assert lm != null;
 
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location ==null){
+       Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
+       //LocationManager location = lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+        if (location == null){
             lat = -1.0;
             lon = -1.0;
         }

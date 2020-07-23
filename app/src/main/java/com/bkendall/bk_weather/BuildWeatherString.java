@@ -19,19 +19,21 @@ public class BuildWeatherString {
         double temp = currentWeather.getDouble("temp");
         temp = (int) temp;
 
-        current_temp = current_temp.concat(description + "\n");
-        current_temp = current_temp.concat(String.valueOf(temp));
+        current_temp = current_temp.concat("    " + description + "\n");
+        current_temp = current_temp.concat("    " + String.valueOf(temp));
 
         return current_temp;
     }
-
+/*
     //TODO get location from gps
     // I get the current location
- //   static String currentLocation(JSONObject json) throws JSONException {
-   //     String location = json.getString("name");
+    static String currentLocation(double lat, double lon, Geocoder geocoder) throws JSONException {
+        //String location = json.getString("name");
+        // return location;
 
-     //   return location;
-   // }
+    }
+*/
+
 
     // I build the extended forecast
     static String futureForecast(JSONObject json) throws JSONException {
@@ -53,9 +55,9 @@ public class BuildWeatherString {
         String coniditions = description.getString("description");
 
         forecast = forecast.concat(weekday + "\n");
-        forecast = forecast.concat(coniditions + "\n");
-        forecast = forecast.concat("High: " + max_temp + "\n");
-        forecast = forecast.concat("Low: " + min_temp);
+        forecast = forecast.concat("    " + coniditions + "\n");
+        forecast = forecast.concat("    High: " + max_temp + "\n");
+        forecast = forecast.concat("    Low: " + min_temp);
 
         return forecast;
     }

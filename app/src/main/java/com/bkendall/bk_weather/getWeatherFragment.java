@@ -1,5 +1,6 @@
 package com.bkendall.bk_weather;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,8 @@ public class getWeatherFragment extends Fragment {
     private String latitude;
     private String longitude;
     private String secret_api_key;
+
+    private Geocoder geocoder;
 
 
     getWeatherFragment(double lat, double lon, String api_key){
@@ -66,7 +69,7 @@ public class getWeatherFragment extends Fragment {
                         public void run() {
                             try {
                                 if (latitude.equals("-1.0") && longitude.equals("-1.0")) {
-                                    currentWeather.setText("ERROR:\nNo GPS data");
+                                    currentWeather.setText("ERROR:\nNo GPS data\nTry again later!");
                                 }
                                 else {
                                     renderWeather(json);
@@ -85,9 +88,9 @@ public class getWeatherFragment extends Fragment {
         }.start();
     }
 
+
     // I am the method for populating the textviews
     private void renderWeather(JSONObject weatherData) throws JSONException {
-
         String dailyWeather = getString(R.string.daily);
         String today = getString(R.string.today);
 
