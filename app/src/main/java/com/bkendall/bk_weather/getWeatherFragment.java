@@ -69,20 +69,20 @@ public class getWeatherFragment extends Fragment {
                         public void run() {
                             try {
                                 if (latitude.equals("-1.0") && longitude.equals("-1.0")) {
-                                    currentWeather.setText("ERROR:\nNo GPS data\nTry again later!");
+                                    currentWeather.setText(R.string.gps_error);
                                 }
                                 else {
                                     renderWeather(json);
                                 }
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                currentWeather.setText(R.string.unexpected_error);
                             }
                         }
                     });
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    currentWeather.setText(R.string.unexpected_error);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    currentWeather.setText(R.string.unexpected_error);
                 }
             }
         }.start();
