@@ -10,10 +10,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.TextView;
+
 
 
 public class MainActivity extends AppCompatActivity {
-
+   // TextView error = findViewById(R.id.error);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         double lat;
@@ -25,28 +27,28 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        try {
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        assert lm != null;
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
 
-       Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
-       //LocationManager location = lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-        if (location == null){
-            lat = -1.0;
-            lon = -1.0;
-        }
-        else {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
+
             lat = location.getLatitude();
             lon = location.getLongitude();
-        }
 
-        if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.containter, new getWeatherFragment(lat, lon, api_key))
-                    .commit();
+            if (savedInstanceState == null){
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.containter, new getWeatherFragment(lat, lon, api_key))
+                        .commit();
+            }
+
+        } catch (NullPointerException e){
+            TextView error = findViewById(R.id.error);
+            error.setText(R.string.gps_error);
+            System.out.println(e);
         }
     }
 }

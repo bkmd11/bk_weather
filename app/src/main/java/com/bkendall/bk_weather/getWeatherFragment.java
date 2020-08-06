@@ -68,12 +68,8 @@ public class getWeatherFragment extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                if (latitude.equals("-1.0") && longitude.equals("-1.0")) {
-                                    currentWeather.setText(R.string.gps_error);
-                                }
-                                else {
-                                    renderWeather(json);
-                                }
+                                renderWeather(json);
+
                             } catch (JSONException e) {
                                 currentWeather.setText(R.string.unexpected_error);
                             }
@@ -107,9 +103,5 @@ public class getWeatherFragment extends Fragment {
         tomorrow.setText(tomorrow_forecast);
         two_day.setText(two_days_out);
         three_day.setText(three_days_out);
-
     }
-
-
 }
-
