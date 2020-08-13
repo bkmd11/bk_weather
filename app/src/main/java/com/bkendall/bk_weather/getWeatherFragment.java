@@ -90,8 +90,8 @@ public class getWeatherFragment extends Fragment {
 
     // I am the method for populating the textviews
     private void renderWeather(JSONObject weatherData) throws JSONException {
-        String dailyWeather = getString(R.string.daily);
-        String today = getString(R.string.today);
+        String dailyWeather = getString(R.string.daily_weather);
+        String today = getString(R.string.todays_weather);
 
         //String current_location = BuildWeatherString.currentLocation(weatherData);
         String current_weather = currentWeatherString(weatherData.getJSONObject(today));
@@ -114,7 +114,7 @@ public class getWeatherFragment extends Fragment {
 
         String description = conditions.getString(getString(R.string.description));
 
-        double temp = currentWeather.getDouble(getString(R.string.temp));
+        double temp = currentWeather.getDouble(getString(R.string.temperature));
         int temp_int = (int) temp;
 
         return String.format(getString(R.string.current_weather), description, temp_int);
@@ -122,7 +122,7 @@ public class getWeatherFragment extends Fragment {
 
     private String todayForecastString(JSONObject json) throws JSONException {
 
-        JSONObject temp = json.getJSONObject(getString(R.string.temp));
+        JSONObject temp = json.getJSONObject(getString(R.string.temperature));
         double max_temp = temp.getDouble(getString(R.string.highTemp));
         double min_temp = temp.getDouble(getString(R.string.lowTemp));
 
@@ -142,7 +142,7 @@ public class getWeatherFragment extends Fragment {
         Date dateFormat = new java.util.Date(unix_time * 1000L);
         String weekday = sdf.format(dateFormat);
 
-        JSONObject temp = json.getJSONObject(getString(R.string.temp));
+        JSONObject temp = json.getJSONObject(getString(R.string.temperature));
         double max_temp = temp.getDouble(getString(R.string.highTemp));
         double min_temp = temp.getDouble(getString(R.string.lowTemp));
 
@@ -151,7 +151,6 @@ public class getWeatherFragment extends Fragment {
 
         JSONObject description = json.getJSONArray(getString(R.string.weather)).getJSONObject(0);
         String conditions = description.getString(getString(R.string.description));
-
 
         return String.format(getString(R.string.future_forecast), weekday, conditions, max_temp_int, min_temp_int);
     }

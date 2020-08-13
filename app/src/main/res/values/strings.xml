@@ -8,17 +8,16 @@
     <string name="future_forecast">%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d</string>
 
     <!-- Strings to identify items in JSONObject -->
-    <string name="daily">daily</string>
-    <string name="today">current</string>
-    <string name="temp">temp</string>
+    <string name="daily_weather">daily</string>
+    <string name="todays_weather">current</string>
+    <string name="temperature">temp</string>
     <string name="weather">weather</string>
     <string name="description">description</string>
     <string name="highTemp">max</string>
     <string name="lowTemp">min</string>
     <string name="dateTime">dt</string>
 
-
-
+    <!-- Strings for some error messages -->
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>
     <string name="unexpected_error">Sorry\nSomething went wrong\nTry again later!</string>
 </resources>
