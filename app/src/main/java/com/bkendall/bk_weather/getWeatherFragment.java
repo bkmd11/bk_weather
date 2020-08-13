@@ -1,5 +1,6 @@
 package com.bkendall.bk_weather;
 
+import android.annotation.SuppressLint;
 import android.location.Geocoder;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class getWeatherFragment extends Fragment {
@@ -91,17 +94,65 @@ public class getWeatherFragment extends Fragment {
         String today = getString(R.string.today);
 
         //String current_location = BuildWeatherString.currentLocation(weatherData);
-        String current_temp = BuildWeatherString.currentWeather(weatherData.getJSONObject(today));
-        String today_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(0));
-        String tomorrow_forecast = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(1));
-        String two_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(2));
-        String three_days_out = BuildWeatherString.futureForecast(weatherData.getJSONArray(dailyWeather).getJSONObject(3));
+        String current_weather = currentWeatherString(weatherData.getJSONObject(today));
+        String today_forecast = todayForecastString(weatherData.getJSONArray(dailyWeather).getJSONObject(0));
+        String tomorrow_forecast = futureForecastString(weatherData.getJSONArray(dailyWeather).getJSONObject(1));
+        String two_days_out = futureForecastString(weatherData.getJSONArray(dailyWeather).getJSONObject(2));
+        String three_days_out = futureForecastString(weatherData.getJSONArray(dailyWeather).getJSONObject(3));
 
         //location.setText(current_location);
-        currentWeather.setText(current_temp);
+        currentWeather.setText(current_weather);
         this_day.setText(today_forecast);
         tomorrow.setText(tomorrow_forecast);
         two_day.setText(two_days_out);
         three_day.setText(three_days_out);
+    }
+
+    // I build the string to display the current weather
+    private String currentWeatherString(JSONObject currentWeather) throws JSONException {
+        JSONObject conditions = currentWeather.getJSONArray(getString(R.string.weather)).getJSONObject(0);
+
+        String description = conditions.getString(getString(R.string.description));
+
+        double temp = currentWeather.getDouble(getString(R.string.temp));
+        int temp_int = (int) temp;
+
+        return String.format(getString(R.string.current_weather), description, temp_int);
+    }
+
+    private String todayForecastString(JSONObject json) throws JSONException {
+
+        JSONObject temp = json.getJSONObject(getString(R.string.temp));
+        double max_temp = temp.getDouble(getString(R.string.highTemp));
+        double min_temp = temp.getDouble(getString(R.string.lowTemp));
+
+        int max_temp_int = (int) max_temp;
+        int min_temp_int = (int) min_temp;
+
+        JSONObject description = json.getJSONArray(getString(R.string.weather)).getJSONObject(0);
+        String conditions = description.getString(getString(R.string.description));
+
+        return String.format(getString(R.string.today_forecast), conditions, max_temp_int, min_temp_int);
+    }
+
+    private String futureForecastString(JSONObject json) throws JSONException {
+        int unix_time = json.getInt(getString(R.string.dateTime));
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date dateFormat = new java.util.Date(unix_time * 1000L);
+        String weekday = sdf.format(dateFormat);
+
+        JSONObject temp = json.getJSONObject(getString(R.string.temp));
+        double max_temp = temp.getDouble(getString(R.string.highTemp));
+        double min_temp = temp.getDouble(getString(R.string.lowTemp));
+
+        int max_temp_int = (int) max_temp;
+        int min_temp_int = (int) min_temp;
+
+        JSONObject description = json.getJSONArray(getString(R.string.weather)).getJSONObject(0);
+        String conditions = description.getString(getString(R.string.description));
+
+
+        return String.format(getString(R.string.future_forecast), weekday, conditions, max_temp_int, min_temp_int);
     }
 }

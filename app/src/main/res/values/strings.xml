@@ -1,15 +1,23 @@
 <resources>
     <string name="app_name">Minimalist Weather</string>
     <string name="location">current_location</string>
-    <string name="current_temp">current_temp</string>
-    <string name="this_day">this_day</string>
-    <string name="tomorrow">tomorrow</string>
-    <string name="two_day">two_day</string>
-    <string name="three_day">three_day</string>
 
+    <!-- Strings for displaying on TextViews -->
+    <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\t%d</string>
+    <string name="today_forecast">Today\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d</string>
+    <string name="future_forecast">%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d</string>
+
+    <!-- Strings to identify items in JSONObject -->
     <string name="daily">daily</string>
     <string name="today">current</string>
     <string name="temp">temp</string>
+    <string name="weather">weather</string>
+    <string name="description">description</string>
+    <string name="highTemp">max</string>
+    <string name="lowTemp">min</string>
+    <string name="dateTime">dt</string>
+
+
 
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>
     <string name="unexpected_error">Sorry\nSomething went wrong\nTry again later!</string>
