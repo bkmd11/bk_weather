@@ -20,4 +20,5 @@
     <!-- Strings for some error messages -->
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>
     <string name="unexpected_error">Sorry\nSomething went wrong\nTry again later!</string>
+
 </resources>

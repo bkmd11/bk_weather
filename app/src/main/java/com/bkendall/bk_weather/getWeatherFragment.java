@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// TODO: plumb this bitch into ShowWeatherFragment somehow,
+//  make View/ViewModel?
+//  need to get location again.
 
 public class getWeatherFragment extends Fragment {
    // private TextView location;
