@@ -2,6 +2,11 @@
     <string name="app_name">Minimalist Weather</string>
     <string name="location">current_location</string>
 
+    <!-- Strings for tab titles -->
+    <string name="current">current</string>
+    <string name="hr_by_hr">hour by hour</string>
+    <string name="future_cast">3 day</string>
+
     <!-- Strings for displaying on TextViews -->
     <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\t%d</string>
     <string name="today_forecast">Today\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d</string>

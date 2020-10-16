@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -40,7 +39,6 @@ public class ShowWeatherFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_show_weather, container, false);
     }
 
-    // TODO: Figure out how to set text for different tabs
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
