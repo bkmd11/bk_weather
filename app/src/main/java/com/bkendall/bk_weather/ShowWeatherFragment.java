@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class ShowWeatherFragment extends Fragment {
-
+// TODO: need to create thread to handle fetching weather data
     private static final String ARG_COUNT = "param1";
     private Integer count;
 

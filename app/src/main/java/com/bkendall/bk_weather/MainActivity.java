@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
-
+//  TODO: need to get location again.
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
