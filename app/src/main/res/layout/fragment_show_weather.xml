@@ -6,8 +6,11 @@
     tools:context=".ShowWeatherFragment">
 
     <TextView
-        android:id="@+id/spam"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id="@+id/weather_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="32sp" />
 
 </FrameLayout>
