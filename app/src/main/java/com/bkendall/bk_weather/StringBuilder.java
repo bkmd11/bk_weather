@@ -1,3 +1,5 @@
+package com.bkendall.bk_weather;
+
 import org.json.JSONObject;
 
 //TODO: this will be a class to format strings for TextViews

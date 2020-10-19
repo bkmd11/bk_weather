@@ -17,7 +17,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class ShowWeatherFragment extends Fragment {
-// TODO: need to create thread to handle fetching weather data
     private static final String ARG_COUNT = "param1";
     private Integer count;
 
@@ -43,23 +42,10 @@ public class ShowWeatherFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
-                new Thread(){
-                    public void run(){
-                        try {
-                            final JSONObject json = FetchWeather.getForecast("0", "0", getString(R.string.api_key));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
-            }
             count = getArguments().getInt(ARG_COUNT);
         }
-
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

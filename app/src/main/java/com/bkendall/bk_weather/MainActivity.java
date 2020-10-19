@@ -19,7 +19,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-//  TODO: need to get location again.
     TabLayout tabLayout;
     ViewPager2 viewPager2;
 
@@ -35,13 +34,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
+//  TODO: need to get location again.
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager2);
 
-        // TODO: I can put my strings in here
-        viewPager2.setAdapter(createMyAdapter("python is better"));
+        viewPager2.setAdapter(createMyAdapter());
 
         new TabLayoutMediator(tabLayout, viewPager2,
                 new TabLayoutMediator.TabConfigurationStrategy() {
@@ -50,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).attach();
     }
-    private WeatherFragmentAdapter createMyAdapter(String shade) {
-        WeatherFragmentAdapter adapter = new WeatherFragmentAdapter(this, "FIX ME", shade);
+    private WeatherFragmentAdapter createMyAdapter() {
+        WeatherFragmentAdapter adapter = new WeatherFragmentAdapter(this, getString(R.string.api_key));
         return adapter;
     }
 }
