@@ -90,10 +90,10 @@ public class getWeatherFragment extends Fragment {
     }
 
 
-    // I am the method for populating the textviews
+    // I am the method for populating the textViews
     private void renderWeather(JSONObject weatherData) throws JSONException {
         String dailyWeather = getString(R.string.daily_weather);
-        String today = getString(R.string.todays_weather);
+        String today = getString(R.string.weather_now);
 
         //String current_location = BuildWeatherString.currentLocation(weatherData);
         String current_weather = currentWeatherString(weatherData.getJSONObject(today));

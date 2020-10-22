@@ -14,8 +14,11 @@
     <string name="future_forecast">%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d</string>
 
     <!-- Strings to identify items in JSONObject -->
+    <string name="weather_now">current</string>
+    <string name="hourly">hourly</string>
     <string name="daily_weather">daily</string>
-    <string name="todays_weather">current</string>
+
+
     <string name="temperature">temp</string>
     <string name="weather">weather</string>
     <string name="description">description</string>

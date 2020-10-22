@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }).attach();
     }
     private WeatherFragmentAdapter createMyAdapter() {
-        WeatherFragmentAdapter adapter = new WeatherFragmentAdapter(this, getString(R.string.api_key));
+        WeatherFragmentAdapter adapter = new WeatherFragmentAdapter(this, this);
         return adapter;
     }
 }

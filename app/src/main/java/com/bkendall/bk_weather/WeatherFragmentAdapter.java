@@ -1,5 +1,7 @@
 package com.bkendall.bk_weather;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -13,27 +15,22 @@ import java.io.IOException;
 
 
 public class WeatherFragmentAdapter extends FragmentStateAdapter {
-    String currentWeather;
-    String hrByHr;
-    String futureForecast;
-    String apiKey;
+    private String currentWeather;
+    private String hrByHr;
+    private String futureForecast;
+    private String apiKey;
 
-    JSONObject jsonObject;
-
-    // TODO: need to have this take all my strings
-    //  Try a list/tuple type thing...
-    public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, String api_key) {
+    public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity) {
         super(fragmentActivity);
-        apiKey = api_key;
-
+        apiKey = mainActivity.getString(R.string.api_key);
 
         new Thread(){
             public void run(){
                 try {
-                    final JSONObject json = FetchWeather.getForecast("0", "0", apiKey);
-                    currentWeather = "FIX ME!";
-                    hrByHr = "FIX ME TOO!!";
-                    futureForecast = "DON'T FORGET ABOUT ME";
+                    final JSONObject json = FetchWeather.getForecast("69", "0", apiKey);
+                    currentWeather = StringBuilder.currentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)));
+                    hrByHr = StringBuilder.hourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)));
+                    futureForecast = StringBuilder.futureForecastString(json.getJSONArray(mainActivity.getString(R.string.daily_weather)));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
