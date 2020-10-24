@@ -59,7 +59,7 @@ public class ShowWeatherFragment extends Fragment {
         final String[] tabText = {currentWeather, hrByHr, threeDay};
 
         super.onViewCreated(view, savedInstanceState);
-
+        // TODO: could try putting stringbuilder stuff here with case statements
         TextView textViewCounter = view.findViewById(R.id.weather_view);
         textViewCounter.setText(tabText[count]);
     }

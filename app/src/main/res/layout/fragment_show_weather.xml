@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TODO: make layout pretty -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    android:layout_height="100sp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ShowWeatherFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/weather_view"
@@ -14,4 +13,4 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="32sp" />
 
-</FrameLayout>
+</ScrollView>
