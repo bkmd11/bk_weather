@@ -55,17 +55,20 @@ public class MainActivity extends AppCompatActivity {
             lon = 0;
         }
 
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager2 = findViewById(R.id.viewPager2);
+        if(savedInstanceState == null) {
+            tabLayout = findViewById(R.id.tabLayout);
+            viewPager2 = findViewById(R.id.viewPager2);
 
-        viewPager2.setAdapter(createMyAdapter());
+            viewPager2.setAdapter(createMyAdapter());
 
-        new TabLayoutMediator(tabLayout, viewPager2,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        tab.setText(tabTitles[position]);
-                    }
-                }).attach();
+            new TabLayoutMediator(tabLayout, viewPager2,
+                    new TabLayoutMediator.TabConfigurationStrategy() {
+                        @Override
+                        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                            tab.setText(tabTitles[position]);
+                        }
+                    }).attach();
+        }
     }
 
     private WeatherFragmentAdapter createMyAdapter() {
