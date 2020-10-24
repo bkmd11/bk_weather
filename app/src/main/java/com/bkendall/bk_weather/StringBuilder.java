@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //TODO: put all strings at the top to maintain easier
+//TODO: really need to clean up the code
+//TODO: test test test to save time and headache
 
 // I build strings for textViews
 public class StringBuilder {
