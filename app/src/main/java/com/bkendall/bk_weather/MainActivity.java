@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             lon = 0;
         }
 
-
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager2);
 
