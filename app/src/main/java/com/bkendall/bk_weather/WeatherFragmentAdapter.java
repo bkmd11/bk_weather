@@ -31,6 +31,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
             public void run(){
                 try {
                     final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
+                    System.out.println("SHOULD BE FIRST");
                     currentWeather = StringBuilder.currentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)));
                     hrByHr = StringBuilder.hourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)));
                     futureForecast = StringBuilder.futureForecastString(json.getJSONArray(mainActivity.getString(R.string.daily_weather)));
@@ -46,6 +47,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        System.out.println("SHOULD BE SECOND");
         return ShowWeatherFragment.newInstance(position, currentWeather, hrByHr, futureForecast);
     }
 
