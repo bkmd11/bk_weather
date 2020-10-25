@@ -19,7 +19,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     private String futureForecast;
     private String apiKey;
 
-    public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity, double lat, double lon) {
+    public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity, double lat, double lon) throws InterruptedException {
         super(fragmentActivity);
 
         final String latitude = String.valueOf(lat);
@@ -27,27 +27,33 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
 
         apiKey = mainActivity.getString(R.string.api_key);
 
-        new Thread(){
+        Thread t = new Thread(new Runnable(){
+            @Override
             public void run(){
                 try {
                     final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
-                    System.out.println("SHOULD BE FIRST");
+
                     currentWeather = StringBuilder.currentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)));
                     hrByHr = StringBuilder.hourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)));
                     futureForecast = StringBuilder.futureForecastString(json.getJSONArray(mainActivity.getString(R.string.daily_weather)));
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    currentWeather = mainActivity.getString(R.string.unexpected_error);
+                    hrByHr = mainActivity.getString(R.string.unexpected_error);
+                    futureForecast = mainActivity.getString(R.string.unexpected_error);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    currentWeather = mainActivity.getString(R.string.unexpected_error);
+                    hrByHr = mainActivity.getString(R.string.unexpected_error);
+                    futureForecast = mainActivity.getString(R.string.unexpected_error);
                 }
             }
-        }.start();
+        });
+        t.start();
+        t.join();
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        System.out.println("SHOULD BE SECOND");
         return ShowWeatherFragment.newInstance(position, currentWeather, hrByHr, futureForecast);
     }
 

@@ -8,11 +8,13 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -44,34 +46,38 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            assert lm != null;
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
 
-            assert location != null;
             lat = location.getLatitude();
             lon = location.getLongitude();
+
+
+            if(savedInstanceState == null) {
+                tabLayout = findViewById(R.id.tabLayout);
+                viewPager2 = findViewById(R.id.viewPager2);
+
+                try {
+                    viewPager2.setAdapter(createMyAdapter());
+                } catch (InterruptedException e) {
+                    TextView errorText = findViewById(R.id.error_message);
+                    errorText.setText(R.string.unexpected_error);
+                }
+
+                new TabLayoutMediator(tabLayout, viewPager2,
+                        new TabLayoutMediator.TabConfigurationStrategy() {
+                            @Override
+                            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                                tab.setText(tabTitles[position]);
+                            }
+                        }).attach();
+            }
         } catch (NullPointerException e) {
-            lat = 0;
-            lon = 0;
-        }
-
-        if(savedInstanceState == null) {
-            tabLayout = findViewById(R.id.tabLayout);
-            viewPager2 = findViewById(R.id.viewPager2);
-
-            viewPager2.setAdapter(createMyAdapter());
-
-            new TabLayoutMediator(tabLayout, viewPager2,
-                    new TabLayoutMediator.TabConfigurationStrategy() {
-                        @Override
-                        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                            tab.setText(tabTitles[position]);
-                        }
-                    }).attach();
+            TextView error = findViewById(R.id.error_gps);
+            error.setText(R.string.gps_error);
         }
     }
 
-    private WeatherFragmentAdapter createMyAdapter() {
+    private WeatherFragmentAdapter createMyAdapter() throws InterruptedException {
         return new WeatherFragmentAdapter(this, this, lat, lon);
     }
 }
