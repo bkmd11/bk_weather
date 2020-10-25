@@ -46,36 +46,38 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
+            assert lm != null;
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
 
+            assert location != null;
             lat = location.getLatitude();
             lon = location.getLongitude();
-
-
-            if(savedInstanceState == null) {
-                tabLayout = findViewById(R.id.tabLayout);
-                viewPager2 = findViewById(R.id.viewPager2);
-
-                try {
-                    viewPager2.setAdapter(createMyAdapter());
-                } catch (InterruptedException e) {
-                    TextView errorText = findViewById(R.id.error_message);
-                    errorText.setText(R.string.unexpected_error);
-                }
-
-                new TabLayoutMediator(tabLayout, viewPager2,
-                        new TabLayoutMediator.TabConfigurationStrategy() {
-                            @Override
-                            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                                tab.setText(tabTitles[position]);
-                            }
-                        }).attach();
-            }
         } catch (NullPointerException e) {
-            TextView error = findViewById(R.id.error_gps);
-            error.setText(R.string.gps_error);
+            e.printStackTrace();
+            lat = 0;
+            lon = 0;
+        }
+
+        if (savedInstanceState == null) {
+            tabLayout = findViewById(R.id.tabLayout);
+            viewPager2 = findViewById(R.id.viewPager2);
+
+            try {
+                viewPager2.setAdapter(createMyAdapter());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            new TabLayoutMediator(tabLayout, viewPager2,
+                    new TabLayoutMediator.TabConfigurationStrategy() {
+                        @Override
+                        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                            tab.setText(tabTitles[position]);
+                        }
+                    }).attach();
         }
     }
+
 
     private WeatherFragmentAdapter createMyAdapter() throws InterruptedException {
         return new WeatherFragmentAdapter(this, this, lat, lon);

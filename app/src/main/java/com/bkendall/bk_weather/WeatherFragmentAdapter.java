@@ -31,6 +31,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
             @Override
             public void run(){
                 try {
+
                     final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
 
                     currentWeather = StringBuilder.currentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)));
