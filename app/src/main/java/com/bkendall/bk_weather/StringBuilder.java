@@ -83,15 +83,18 @@ public class StringBuilder {
     }
 
     private static String setConditions(JSONObject weather) throws JSONException {
-
+        // I return a string of forecasted conditions
         JSONObject description = weather.getJSONArray("weather").getJSONObject(0);
         return description.getString("description");
     }
+
     private static int setDoubleToInt(double temp){
+        // I convert a double into an int
         return (int) temp;
     }
 
     private static String setDateString(int unix_time, String pattern){
+        // I return a date to the specified format
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
         Date dateFormat = new java.util.Date(unix_time * 1000L);
 
