@@ -5,7 +5,7 @@
     <!-- Strings for tab titles -->
     <string name="current">current</string>
     <string name="hr_by_hr">hour by hour</string>
-    <string name="future_cast">3 day</string>
+    <string name="future_cast">extended</string>
 
     <!-- Strings for displaying on TextViews -->
     <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\t%d</string>

@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 //TODO: put all strings at the top to maintain easier
 //TODO: really need to clean up the code
@@ -17,20 +18,17 @@ import java.util.Date;
 public class StringBuilder {
 
     @SuppressLint("DefaultLocale")
-    public static String currentWeatherString(JSONObject currentWeather) throws JSONException {
+    public static String setCurrentWeatherString(JSONObject currentWeather) throws JSONException {
         // I build the string for the current weather tab
-        JSONObject conditions = currentWeather.getJSONArray("weather").getJSONObject(0);
+        String description = setConditions(currentWeather);
 
-        String description = conditions.getString("description");
+        int temp = setDoubleToInt(currentWeather.getDouble("temp"));
 
-        double temp = currentWeather.getDouble("temp");
-        int temp_int = (int) temp;
-
-        return String.format("Current Weather\n\t\t\t\t%s\n\t\t\t\t%d", description, temp_int);
+        return String.format("Current Weather\n\t\t\t\t%s\n\t\t\t\t%d", description, temp);
     }
 
     @SuppressLint("DefaultLocale")
-    public static String hourByHourString(JSONArray hrByHr) throws JSONException {
+    public static String setHourByHourString(JSONArray hrByHr) throws JSONException {
         // I loop through a JSONArray to build an hour by hour string
         String hrByHrForecastString = "";
         String hrString = "%s\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\n";
@@ -43,25 +41,21 @@ public class StringBuilder {
             hourlyForecast = hrByHr.getJSONObject(i);
             unix_time = hourlyForecast.getInt("dt");
 
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy");
-            Date dateFormat = new java.util.Date(unix_time * 1000L);
-            String hour = sdf.format(dateFormat);
+            String hour = setDateString(unix_time, "EEE MMM d HH:mm:ss zzz yyyy");
             String hourString = hour.substring(11, 16);
 
-            double temp = hourlyForecast.getDouble("temp");
+            int temp_int = setDoubleToInt(hourlyForecast.getDouble("temp"));
 
-            JSONObject description = hourlyForecast.getJSONArray("weather").getJSONObject(0);
-            String conditions = description.getString("description");
+            String conditions = setConditions(hourlyForecast);
 
-            hrByHrForecastString = hrByHrForecastString.concat(String.format(hrString, hourString, conditions, (int) temp));
+            hrByHrForecastString = hrByHrForecastString.concat(String.format(hrString, hourString, conditions, temp_int));
         }
 
         return hrByHrForecastString;
     }
 
     @SuppressLint("DefaultLocale")
-    public static String futureForecastString(JSONArray futureForecast) throws JSONException {
+    public static String setFutureForecastString(JSONArray futureForecast) throws JSONException {
         // I loop through a JSONArray to build a daily forecast string
         String futureForecastString = "";
         String forecastString = "%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d\n\n";
@@ -70,28 +64,37 @@ public class StringBuilder {
 
         JSONObject dailyForecast;
 
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < 5; i++) {
             dailyForecast = futureForecast.getJSONObject(i);
             unix_time = dailyForecast.getInt("dt");
 
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-            Date dateFormat = new java.util.Date(unix_time * 1000L);
-            String weekday = sdf.format(dateFormat);
+            String weekday = setDateString(unix_time, "EEEE");
 
             JSONObject temp = dailyForecast.getJSONObject("temp");
-            double max_temp = temp.getDouble("max");
-            double min_temp = temp.getDouble("min");
+            int max_temp = setDoubleToInt(temp.getDouble("max"));
+            int min_temp = setDoubleToInt(temp.getDouble("min"));
 
-            int max_temp_int = (int) max_temp;
-            int min_temp_int = (int) min_temp;
+            String conditions = setConditions(dailyForecast);
 
-            JSONObject description = dailyForecast.getJSONArray("weather").getJSONObject(0);
-            String conditions = description.getString("description");
-
-            futureForecastString = futureForecastString.concat(String.format(forecastString, weekday, conditions, max_temp_int, min_temp_int));
+            futureForecastString = futureForecastString.concat(String.format(forecastString, weekday, conditions, max_temp, min_temp));
         }
 
         return futureForecastString;
+    }
+
+    private static String setConditions(JSONObject weather) throws JSONException {
+
+        JSONObject description = weather.getJSONArray("weather").getJSONObject(0);
+        return description.getString("description");
+    }
+    private static int setDoubleToInt(double temp){
+        return (int) temp;
+    }
+
+    private static String setDateString(int unix_time, String pattern){
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
+        Date dateFormat = new java.util.Date(unix_time * 1000L);
+
+        return sdf.format(dateFormat);
     }
 }
