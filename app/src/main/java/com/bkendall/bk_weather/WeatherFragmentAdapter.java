@@ -55,7 +55,8 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return ShowWeatherFragment.newInstance(position, currentWeather, hrByHr, futureForecast);
+        final String[] weatherStrings = {currentWeather, hrByHr, futureForecast};
+        return ShowWeatherFragment.newInstance(position, weatherStrings[position]);
     }
 
     @Override

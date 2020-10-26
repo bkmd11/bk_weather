@@ -15,18 +15,15 @@ public class ShowWeatherFragment extends Fragment {
     private static final String ARG_COUNT = "param1";
     private Integer count;
 
-    private String currentWeather;
-    private String hrByHr;
-    private String threeDay;
+    private String weatherString;
 
-    public ShowWeatherFragment(String current_weather, String hr_by_hr, String future_forecast) {
-        currentWeather = current_weather;
-        hrByHr = hr_by_hr;
-        threeDay = future_forecast;
+    public ShowWeatherFragment(String weather_string) {
+        weatherString = weather_string;
+
     }
 
-    public static ShowWeatherFragment newInstance(Integer count, String current_weather, String hr_by_hr, String future_forecast) {
-        ShowWeatherFragment fragment = new ShowWeatherFragment(current_weather, hr_by_hr, future_forecast);
+    public static ShowWeatherFragment newInstance(Integer count, String weather_strings) {
+        ShowWeatherFragment fragment = new ShowWeatherFragment(weather_strings);
         Bundle args = new Bundle();
         args.putInt(ARG_COUNT, count);
         fragment.setArguments(args);
@@ -50,11 +47,9 @@ public class ShowWeatherFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final String[] tabText = {currentWeather, hrByHr, threeDay};
 
         super.onViewCreated(view, savedInstanceState);
-        // TODO: could try putting stringbuilder stuff here with case statements
         TextView textViewCounter = view.findViewById(R.id.weather_view);
-        textViewCounter.setText(tabText[count]);
+        textViewCounter.setText(weatherString);
     }
 }
