@@ -85,7 +85,9 @@ public class StringBuilder {
     private static String setConditions(JSONObject weather) throws JSONException {
         // I return a string of forecasted conditions
         JSONObject description = weather.getJSONArray("weather").getJSONObject(0);
-        return description.getString("description");
+        String conditions = description.getString("description");
+
+        return setFirstLetterCap(conditions);
     }
 
     private static int setDoubleToInt(double temp){
@@ -99,5 +101,9 @@ public class StringBuilder {
         Date dateFormat = new java.util.Date(unix_time * 1000L);
 
         return sdf.format(dateFormat);
+    }
+
+    private static String setFirstLetterCap(String string){
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 }
