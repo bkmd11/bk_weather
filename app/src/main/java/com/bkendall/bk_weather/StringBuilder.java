@@ -41,9 +41,10 @@ public class StringBuilder {
             hourlyForecast = hrByHr.getJSONObject(i);
             unix_time = hourlyForecast.getInt("dt");
 
-            String hour = setDateString(unix_time, "EEE MMM d HH:mm:ss zzz yyyy");
+            String hour = setDateString(unix_time, "EEE MMM dd HH:mm:ss zzz yyyy");
+            // TODO: make this use a regex or something better
             String hourString = hour.substring(11, 16);
-
+            System.out.println(hour);
             int temp_int = setDoubleToInt(hourlyForecast.getDouble("temp"));
 
             String conditions = setConditions(hourlyForecast);
