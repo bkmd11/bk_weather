@@ -1,10 +1,14 @@
 package com.bkendall.bk_weather;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
 
 import android.Manifest;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,15 +16,23 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-
+// TODO: this thing can't really handle errors
 public class MainActivity extends AppCompatActivity {
-   // TextView error = findViewById(R.id.error);
+    TabLayout tabLayout;
+    ViewPager2 viewPager2;
+    double lat;
+    double lon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        double lat;
-        double lon;
-        String api_key = getString(R.string.api_key);
+        // Tab titles
+        String current_weather = getString(R.string.current);
+        String hr_by_hr = getString(R.string.hr_by_hr);
+        String future_forecast = getString(R.string.future_cast);
+        final String[] tabTitles = {current_weather, hr_by_hr, future_forecast};
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -34,23 +46,44 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
+            assert lm != null;
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
 
+            assert location != null;
             lat = location.getLatitude();
             lon = location.getLongitude();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            lat = 0;
+            lon = 0;
+        }
 
-            if (savedInstanceState == null){
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.containter, new getWeatherFragment(lat, lon, api_key))
-                        .commit();
+        if (savedInstanceState == null) {
+            tabLayout = findViewById(R.id.tabLayout);
+            viewPager2 = findViewById(R.id.viewPager2);
+
+            try {
+                viewPager2.setAdapter(createMyAdapter());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
-        } catch (NullPointerException e){
-            TextView error = findViewById(R.id.error);
-            error.setText(R.string.gps_error);
-            System.out.println(e);
+            new TabLayoutMediator(tabLayout, viewPager2,
+                    new TabLayoutMediator.TabConfigurationStrategy() {
+                        @Override
+                        public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                            tab.setText(tabTitles[position]);
+                        }
+                    }).attach();
         }
     }
+
+
+    private WeatherFragmentAdapter createMyAdapter() throws InterruptedException {
+        return new WeatherFragmentAdapter(this, this, lat, lon);
+    }
 }
+
+
 
 
