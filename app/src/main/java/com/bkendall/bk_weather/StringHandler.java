@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 //TODO: really need to clean up the code
 
 // I build strings for textViews
-public class StringBuilder {
+public class StringHandler {
 
     @SuppressLint("DefaultLocale")
     public static String setCurrentWeatherString(JSONObject currentWeather, String weatherString) throws JSONException {

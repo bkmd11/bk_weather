@@ -34,11 +34,11 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
 
                     final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
 
-                    currentWeather = StringBuilder.setCurrentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)),
+                    currentWeather = StringHandler.setCurrentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)),
                             mainActivity.getString(R.string.current_weather));
-                    hrByHr = StringBuilder.setHourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)),
+                    hrByHr = StringHandler.setHourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)),
                             mainActivity.getString(R.string.hr_by_hr_forecast));
-                    futureForecast = StringBuilder.setFutureForecastString(json.getJSONArray(mainActivity.getString(R.string.daily_weather)),
+                    futureForecast = StringHandler.setFutureForecastString(json.getJSONArray(mainActivity.getString(R.string.daily_weather)),
                             mainActivity.getString(R.string.future_forecast));
                 } catch (JSONException e) {
                     currentWeather = mainActivity.getString(R.string.unexpected_error);
