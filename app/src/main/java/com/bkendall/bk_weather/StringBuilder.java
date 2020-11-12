@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //TODO: put all strings at the top to maintain easier
 //TODO: really need to clean up the code
@@ -42,9 +44,8 @@ public class StringBuilder {
             unix_time = hourlyForecast.getInt("dt");
 
             String hour = setDateString(unix_time, "EEE MMM dd HH:mm:ss zzz yyyy");
-            // TODO: make this use a regex or something better
-            String hourString = hour.substring(11, 16);
-            System.out.println(hour);
+
+            String hourString = getTimeRegex(hour);
             int temp_int = setDoubleToInt(hourlyForecast.getDouble("temp"));
 
             String conditions = setConditions(hourlyForecast);
@@ -83,7 +84,7 @@ public class StringBuilder {
         return futureForecastString;
     }
 
-    private static String setConditions(JSONObject weather) throws JSONException {
+    public static String setConditions(JSONObject weather) throws JSONException {
         // I return a string of forecasted conditions
         JSONObject description = weather.getJSONArray("weather").getJSONObject(0);
         String conditions = description.getString("description");
@@ -91,12 +92,12 @@ public class StringBuilder {
         return setFirstLetterCap(conditions);
     }
 
-    private static int setDoubleToInt(double temp){
+    public static int setDoubleToInt(double temp){
         // I convert a double into an int
         return (int) temp;
     }
 
-    private static String setDateString(int unix_time, String pattern){
+    public static String setDateString(int unix_time, String pattern){
         // I return a date to the specified format
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
         Date dateFormat = new java.util.Date(unix_time * 1000L);
@@ -104,7 +105,19 @@ public class StringBuilder {
         return sdf.format(dateFormat);
     }
 
-    private static String setFirstLetterCap(String string){
+    public static String setFirstLetterCap(String string){
         return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
+    public static String getTimeRegex(String unixTime){
+        Pattern timePattern = Pattern.compile("\\d\\d:\\d\\d");
+        Matcher timeMatch = timePattern.matcher(unixTime);
+
+        if (timeMatch.find()) {
+            return timeMatch.group(0);
+        }
+        else {
+            return "XX:XX";
+        }
     }
 }
