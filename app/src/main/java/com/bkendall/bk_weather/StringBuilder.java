@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 
 //TODO: put all strings at the top to maintain easier
 //TODO: really need to clean up the code
-//TODO: test test test to save time and headache
 
 // I build strings for textViews
 public class StringBuilder {
@@ -106,10 +105,12 @@ public class StringBuilder {
     }
 
     public static String setFirstLetterCap(String string){
+        // I capitalize the first letter of a string
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 
     public static String getTimeRegex(String unixTime){
+        // I find the time regex from a unix timestamp string
         Pattern timePattern = Pattern.compile("\\d\\d:\\d\\d");
         Matcher timeMatch = timePattern.matcher(unixTime);
 
