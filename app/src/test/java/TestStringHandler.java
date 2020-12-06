@@ -17,6 +17,12 @@ public class TestStringHandler {
     }
 
     @Test
+    public void testSetFistLetterCapHandlesSpace() {
+        String result = StringHandler.setFirstLetterCap(" ");
+        Assert.assertEquals(result, " ");
+    }
+
+    @Test
     public void testGetTimeRegexReturnsTime(){
         String result = StringHandler.getTimeRegex("Fri Nov 13 02:00:00 EST 2020");
         Assert.assertEquals(result, "02:00");

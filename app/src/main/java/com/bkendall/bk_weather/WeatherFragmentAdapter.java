@@ -33,7 +33,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                 try {
 
                     final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
-
+        // TODO: add alert pop up thingy
                     currentWeather = StringHandler.setCurrentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)),
                             mainActivity.getString(R.string.current_weather));
                     hrByHr = StringHandler.setHourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)),
