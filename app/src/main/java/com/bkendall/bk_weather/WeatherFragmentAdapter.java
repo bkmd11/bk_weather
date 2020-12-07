@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import org.json.JSONException;
@@ -18,6 +17,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     private String hrByHr;
     private String futureForecast;
     private String apiKey;
+    public String alert;
 
     public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity, double lat, double lon) throws InterruptedException {
         super(fragmentActivity);
@@ -33,13 +33,21 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                 try {
 
                     final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
-        // TODO: add alert pop up thingy
                     currentWeather = StringHandler.setCurrentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)),
                             mainActivity.getString(R.string.current_weather));
                     hrByHr = StringHandler.setHourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)),
                             mainActivity.getString(R.string.hr_by_hr_forecast));
                     futureForecast = StringHandler.setFutureForecastString(json.getJSONArray(mainActivity.getString(R.string.daily_weather)),
-                            mainActivity.getString(R.string.future_forecast));
+                           mainActivity.getString(R.string.future_forecast));
+
+                    try {
+                        // TODO: add this to StringHandler to make pretty
+                        alert = json.getJSONArray("alerts").getJSONObject(0).getString("description");
+
+                    } catch (JSONException e) {
+                        alert = "";
+                    }
+
                 } catch (JSONException e) {
                     currentWeather = mainActivity.getString(R.string.unexpected_error);
                     hrByHr = mainActivity.getString(R.string.unexpected_error);

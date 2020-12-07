@@ -1,19 +1,19 @@
 package com.bkendall.bk_weather;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager2.widget.ViewPager2;
-
-
 import android.Manifest;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -24,6 +24,9 @@ import org.jetbrains.annotations.NotNull;
 public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
+
+    Button alertButton;
+
     double lat;
     double lon;
 
@@ -40,11 +43,18 @@ public class MainActivity extends AppCompatActivity {
          else {
              setCoordinates();
              setForecastViews();
+             System.out.println();
          }
     }
 
     private WeatherFragmentAdapter createMyAdapter() throws InterruptedException {
-        return new WeatherFragmentAdapter(this, this, lat, lon);
+        WeatherFragmentAdapter weatherFragmentAdapter = new WeatherFragmentAdapter(this, this, lat, lon);
+
+        if (weatherFragmentAdapter.alert.equals("")) {
+            // TODO: give this button a listener and link it to a new view for the alert
+            alertButton.setVisibility(View.VISIBLE);
+        }
+        return weatherFragmentAdapter;
     }
 
     @Override
@@ -65,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager2);
+
+        alertButton = findViewById(R.id.alert);
 
         try {
             viewPager2.setAdapter(createMyAdapter());
