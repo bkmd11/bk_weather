@@ -20,6 +20,11 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     public String alert;
 
     public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity, double lat, double lon) throws InterruptedException {
+        /*
+        I am an adapter that controls the construction of fragments for the multi tabbed view.
+        I also call the weather api and handle that data in the background, but I cannot actually
+        change any of the views
+         */
         super(fragmentActivity);
 
         final String latitude = String.valueOf(lat);
