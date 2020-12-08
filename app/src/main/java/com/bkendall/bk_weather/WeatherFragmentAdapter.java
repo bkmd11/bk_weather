@@ -17,6 +17,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     private String hrByHr;
     private String futureForecast;
     private String apiKey;
+
     public String alert;
 
     public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity, double lat, double lon) throws InterruptedException {

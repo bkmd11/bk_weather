@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setForecastViews(){
+
         // Tab titles
         String current_weather = getString(R.string.current);
         String hr_by_hr = getString(R.string.hr_by_hr);
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager2);
 
-        alertButton = findViewById(R.id.alert);
+        alertButton = findViewById(R.id.alert); //TODO: I might not belong here
 
         try {
             viewPager2.setAdapter(createMyAdapter());
