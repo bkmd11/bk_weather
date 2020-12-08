@@ -46,8 +46,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                            mainActivity.getString(R.string.future_forecast));
 
                     try {
-                        // TODO: add this to StringHandler to make pretty
-                        alert = json.getJSONArray("alerts").getJSONObject(0).getString("description");
+                        alert = StringHandler.setAlertString(json.getJSONArray(mainActivity.getString(R.string.alert)));
 
                     } catch (JSONException e) {
                         alert = "";

@@ -16,6 +16,8 @@
     <string name="weather_now">current</string>
     <string name="hourly">hourly</string>
     <string name="daily_weather">daily</string>
+    <string name="alert">alerts</string>
+
 
     <string name="temperature">temp</string>
     <string name="weather">weather</string>
@@ -23,9 +25,6 @@
     <string name="highTemp">max</string>
     <string name="lowTemp">min</string>
     <string name="dateTime">dt</string>
-
-    <!-- Alert button text -->
-    <string name="alert">ALERT!!!</string>
 
     <!-- Strings for some error messages -->
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>
