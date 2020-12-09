@@ -43,15 +43,21 @@ public class MainActivity extends AppCompatActivity {
          else {
              setCoordinates();
              setForecastViews();
-             System.out.println();
          }
     }
 
     private WeatherFragmentAdapter createMyAdapter() throws InterruptedException {
-        WeatherFragmentAdapter weatherFragmentAdapter = new WeatherFragmentAdapter(this, this, lat, lon);
+        final WeatherFragmentAdapter weatherFragmentAdapter = new WeatherFragmentAdapter(this, this, lat, lon);
 
         if (weatherFragmentAdapter.alert.equals("")) {
             // TODO: give this button a listener and link it to a new view for the alert
+            alertButton = findViewById(R.id.alert);
+            alertButton.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View v) {
+                    System.out.println("FIX ME");
+                }
+            });
+
             alertButton.setVisibility(View.VISIBLE);
         }
         return weatherFragmentAdapter;
@@ -76,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager2 = findViewById(R.id.viewPager2);
-
-        alertButton = findViewById(R.id.alert); //TODO: I might not belong here
 
         try {
             viewPager2.setAdapter(createMyAdapter());
@@ -110,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
             lon = 0;
         }
     }
+
+
 }
 
 
