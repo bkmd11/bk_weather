@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
 
+    TextView alertView;
     Button alertButton;
 
     double lat;
@@ -50,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
         final WeatherFragmentAdapter weatherFragmentAdapter = new WeatherFragmentAdapter(this, this, lat, lon);
 
         if (weatherFragmentAdapter.alert.equals("")) {
-            // TODO: give this button a listener and link it to a new view for the alert
             alertButton = findViewById(R.id.alert);
             alertButton.setOnClickListener(new Button.OnClickListener() {
                 public void onClick(View v) {
-                    System.out.println("FIX ME");
+                    alertView = findViewById(R.id.alertView);
+                    alertView.setVisibility(View.VISIBLE);
+                    alertView.setText("SPAM");
                 }
             });
 
