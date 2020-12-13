@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     view.getContext().startActivity(intent);
                 }
             });
+
+            alertButton.setText(weatherFragmentAdapter.alertType);
             alertButton.setVisibility(View.VISIBLE);
         }
         return weatherFragmentAdapter;

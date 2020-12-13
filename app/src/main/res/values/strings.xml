@@ -20,13 +20,13 @@
     <string name="daily_weather">daily</string>
     <string name="alert">alerts</string>
 
-
     <string name="temperature">temp</string>
     <string name="weather">weather</string>
     <string name="description">description</string>
     <string name="highTemp">max</string>
     <string name="lowTemp">min</string>
     <string name="dateTime">dt</string>
+    <string name="event">event</string>
 
     <!-- Strings for some error messages -->
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>

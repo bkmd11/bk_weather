@@ -19,6 +19,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
     private String apiKey;
 
     public String alert;
+    public String alertType;
 
     public WeatherFragmentAdapter(@NonNull FragmentActivity fragmentActivity, final Context mainActivity, double lat, double lon) throws InterruptedException {
         /*
@@ -47,10 +48,15 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                            mainActivity.getString(R.string.future_forecast));
 
                     try {
-                        alert = StringHandler.setAlertString(json.getJSONArray(mainActivity.getString(R.string.alert)));
+                        alertType = StringHandler.setStringText(json.getJSONArray(mainActivity.getString(R.string.alert)),
+                                mainActivity.getString(R.string.event));
+
+                        alert = StringHandler.setStringText(json.getJSONArray(mainActivity.getString(R.string.alert)),
+                                mainActivity.getString(R.string.description));
 
                     } catch (JSONException e) {
-                        alert = "SPAM AND EGGS";
+                        alertType = "";
+                        alert = "";
                     }
 
                 } catch (JSONException e) {
