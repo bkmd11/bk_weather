@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
             lon = location.getLongitude();
         } catch (NullPointerException e) {
             e.printStackTrace();
-            lat = 43;
-            lon = -71;
+            lat = 0;
+            lon = 0;
         }
     }
 }
