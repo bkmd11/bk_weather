@@ -23,9 +23,15 @@ public class StringHandler {
         // I build the string for the current weather tab
         String description = setConditions(currentWeather);
 
+        String sunrise_time = setDateString(currentWeather.getInt("sunrise"), "EEE MMM dd HH:mm:ss zzz yyyy");
+        String sunrise = getTimeRegex(sunrise_time);
+
+        String sunset_time = setDateString(currentWeather.getInt("sunset"), "EEE MMM dd HH:mm:ss zzz yyyy");
+        String sunset = getTimeRegex(sunset_time);
+
         int temp = setDoubleToInt(currentWeather.getDouble("temp"));
 
-        return String.format(weatherString, description, temp);
+        return String.format(weatherString, description, temp, sunrise, sunset);
     }
 
     @SuppressLint("DefaultLocale")

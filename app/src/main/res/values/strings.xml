@@ -10,7 +10,7 @@
     <string name="future_cast">extended</string>
 
     <!-- Strings for displaying on TextViews -->
-    <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\tTemp: %d</string>
+    <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\t\t\t\tSunrise: %s\n\t\t\t\tSunset: %s\n\n</string>
     <string name="hr_by_hr_forecast">%s\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\n</string>
     <string name="future_forecast">%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d\n\n</string>
 
