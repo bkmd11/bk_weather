@@ -19,17 +19,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <TextView
-        android:id="@+id/alertView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"/>
-
     <Button
         android:id="@+id/alert"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@color/alert"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
 </LinearLayout>
