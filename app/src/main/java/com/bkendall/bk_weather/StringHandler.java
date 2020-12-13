@@ -82,12 +82,14 @@ public class StringHandler {
 
         return futureForecastString;
     }
-    public static String setAlertString(JSONArray alertForecast) throws JSONException {
+
+    public static String setStringText(JSONArray alertForecast, String text) throws JSONException {
         // I return a string of the alert message
         JSONObject alert = alertForecast.getJSONObject(0);
 
-        return alert.getString("description");
+        return alert.getString(text);
     }
+
     public static String setConditions(JSONObject weather) throws JSONException {
         // I return a string of forecasted conditions
         JSONObject description = weather.getJSONArray("weather").getJSONObject(0);
