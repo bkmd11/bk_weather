@@ -3,6 +3,7 @@ package com.bkendall.bk_weather;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -54,10 +55,11 @@ public class MainActivity extends AppCompatActivity {
         if (weatherFragmentAdapter.alert.equals("")) {
             alertButton = findViewById(R.id.alert);
             alertButton.setOnClickListener(new Button.OnClickListener() {
-                public void onClick(View v) {
-                    alertView = findViewById(R.id.alertView);
-                    alertView.setVisibility(View.VISIBLE);
-                    alertView.setText("SPAM");
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), AlertActivity.class);
+                    intent.putExtra("alert", "SPAM");
+
+                    view.getContext().startActivity(intent);
                 }
             });
 
