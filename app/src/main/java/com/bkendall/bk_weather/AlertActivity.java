@@ -8,14 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bkendall.bk_weather.ui.main.AlertFragment;
 
 public class AlertActivity extends AppCompatActivity {
-    public String alertString;
+    private String alertString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alert_activity);
         Intent intent = getIntent();
-        alertString = intent.getStringExtra("alert");
+        alertString = intent.getStringExtra(getString(R.string.intent));
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

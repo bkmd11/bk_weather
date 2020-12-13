@@ -50,7 +50,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                         alert = StringHandler.setAlertString(json.getJSONArray(mainActivity.getString(R.string.alert)));
 
                     } catch (JSONException e) {
-                        alert = "";
+                        alert = "SPAM AND EGGS";
                     }
 
                 } catch (JSONException e) {
