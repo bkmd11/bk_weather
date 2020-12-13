@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bkendall.bk_weather.ui.main.AlertFragment;
 
 public class AlertActivity extends AppCompatActivity {
+    /*
+    I get launched when a button is clicked to show what the weather alert is
+     */
     private String alertString;
 
     @Override

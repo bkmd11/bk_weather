@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import com.bkendall.bk_weather.R;
 
 public class AlertFragment extends Fragment {
+    /*
+    I am a fragment for the AlertActivity. My job is to populate a text view with the alert message
+     */
     private String alertString;
 
     public AlertFragment(String alert_string){
