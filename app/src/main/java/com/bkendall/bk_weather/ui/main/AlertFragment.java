@@ -30,13 +30,13 @@ public class AlertFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_show_weather, container, false);
+        return inflater.inflate(R.layout.alert_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView textViewCounter = view.findViewById(R.id.weather_view);
+        TextView textViewCounter = view.findViewById(R.id.alert_view);
         textViewCounter.setText(alertString);
     }
 }
