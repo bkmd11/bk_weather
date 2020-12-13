@@ -8,8 +8,8 @@ android {
         applicationId "com.bkendall.bk_weather"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 4
-        versionName "2"
+        versionCode 5
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
