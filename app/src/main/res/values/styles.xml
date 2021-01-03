@@ -9,7 +9,8 @@
     </style>
 
     <style name="TabText" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">sans-serif-smallcaps</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">serif-monospace</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
