@@ -134,10 +134,31 @@ public class StringHandler {
         Matcher timeMatch = timePattern.matcher(unixTime);
 
         if (timeMatch.find()) {
-            return timeMatch.group(0);
+            return convertStandardTime(timeMatch.group(0));
         }
         else {
             return "XX:XX";
         }
+    }
+
+    public static String convertStandardTime(String time){
+        // I take a string of military time and convert it to standard time
+        String am_pm = "AM";
+        int hours = Integer.parseInt(time.substring(0, 2));
+
+        if (hours > 11){
+            am_pm = "PM";
+        }
+
+        if (hours > 12){
+            hours = hours - 12;
+        }
+        else if (hours == 0){
+            hours = 12;
+        }
+
+        time = hours + time.substring(2, 5) + " " + am_pm;
+
+        return time;
     }
 }
