@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/bkw_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AlertActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden">
@@ -22,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlertActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+        </activity>
+
     </application>
 
 </manifest>
