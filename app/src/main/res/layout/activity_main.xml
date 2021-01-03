@@ -11,19 +11,21 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabTextAppearance="@style/TabText"
         app:tabMode="fixed" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/alert"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@color/alert"
+        android:fontFamily="sans-serif-smallcaps"
         android:visibility="gone"/>
 
 </LinearLayout>
