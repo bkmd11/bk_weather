@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15sp"
-        android:fontFamily="serif-monospace"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="28sp" />
 
