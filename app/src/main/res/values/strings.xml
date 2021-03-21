@@ -32,4 +32,7 @@
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>
     <string name="unexpected_error">Sorry\nSomething went wrong\nTry again later!</string>
 
+    <!-- File name -->
+    <string name="fileName">weather_data.json</string>
+
 </resources>

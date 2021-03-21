@@ -29,8 +29,9 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
          */
         super(fragmentActivity);
 
-        final String latitude = String.valueOf(lat);
-        final String longitude = String.valueOf(lon);
+        final String FILE_NAME = String.valueOf(R.string.fileName);
+        final String LATITUDE = String.valueOf(lat);
+        final String LONGITUDE = String.valueOf(lon);
 
         apiKey = mainActivity.getString(R.string.api_key);
 
@@ -38,8 +39,16 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
             @Override
             public void run(){
                 try {
-
-                    final JSONObject json = FetchWeather.getForecast(latitude, longitude, apiKey);
+                    JSONObject json;
+                    if (FileHandler.checkIfFileExists(mainActivity, FILE_NAME) && FileHandler.fileModifyDate(mainActivity, FILE_NAME)){
+                        System.out.println("file");
+                        json = FileHandler.readFile(mainActivity, FILE_NAME);
+                    }
+                    else {
+                        System.out.println("api");
+                        json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
+                        FileHandler.createFile(mainActivity, json, FILE_NAME);
+                    }
                     currentWeather = StringHandler.setCurrentWeatherString(json.getJSONObject(mainActivity.getString(R.string.weather_now)),
                             mainActivity.getString(R.string.current_weather));
                     hrByHr = StringHandler.setHourByHourString(json.getJSONArray(mainActivity.getString(R.string.hourly)),
