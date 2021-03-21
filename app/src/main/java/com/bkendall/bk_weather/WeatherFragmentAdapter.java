@@ -41,11 +41,9 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                 try {
                     JSONObject json;
                     if (FileHandler.checkIfFileExists(mainActivity, FILE_NAME) && FileHandler.fileModifyDate(mainActivity, FILE_NAME)){
-                        System.out.println("file");
                         json = FileHandler.readFile(mainActivity, FILE_NAME);
                     }
                     else {
-                        System.out.println("api");
                         json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
                         FileHandler.createFile(mainActivity, json, FILE_NAME);
                     }
