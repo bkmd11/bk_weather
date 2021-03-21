@@ -12,8 +12,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//TODO: put all strings at the top to maintain easier
-//TODO: really need to clean up the code
 
 // I build strings for textViews
 public class StringHandler {
@@ -44,7 +42,7 @@ public class StringHandler {
 
         JSONObject hourlyForecast;
 
-        for (i = 0; i < 12; i++) {
+        for (i = 0; i < 24; i++) {
             hourlyForecast = hrByHr.getJSONObject(i);
             unix_time = hourlyForecast.getInt("dt");
 
@@ -71,7 +69,7 @@ public class StringHandler {
 
         JSONObject dailyForecast;
 
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < 7; i++) {
             dailyForecast = futureForecast.getJSONObject(i);
             unix_time = dailyForecast.getInt("dt");
 
