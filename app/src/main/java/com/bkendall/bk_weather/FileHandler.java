@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public class FileHandler {
-    public static void createFile(Context context, JSONObject jsonObject, String fileName) throws IOException {
+    public void createFile(Context context, JSONObject jsonObject, String fileName) throws IOException {
         // I create a file in the App memory
         String userString = jsonObject.toString();
 
@@ -25,7 +25,7 @@ public class FileHandler {
         bufferedWriter.close();
     }
 
-    public static JSONObject readFile(Context context, String fileName) throws IOException, JSONException {
+    public JSONObject readFile(Context context, String fileName) throws IOException, JSONException {
         // I read the contents of a file and return a JSONObject
         File file = new File(context.getFilesDir(), fileName);
         FileReader fileReader = new FileReader(file);
@@ -41,20 +41,19 @@ public class FileHandler {
         return new JSONObject(stringBuilder.toString());
     }
 
-    public static boolean checkIfFileExists(Context context, String fileName) {
+    public boolean checkIfFileExists(Context context, String fileName) {
         // I check to see if a file already exists
         String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
         File file = new File(path);
         return file.exists();
     }
 
-    public static boolean fileModifyDate(Context context, String fileName) throws IOException {
+    public boolean fileModifyDate(Context context, String fileName) {
         // I check to see if a file is older than 15 minutes
         File file = new File(context.getFilesDir(), fileName);
         Date now = new Date();
         long time = now.getTime();
 
-        System.out.println(time - file.lastModified());
         return time - file.lastModified() < 900000;
     }
 }

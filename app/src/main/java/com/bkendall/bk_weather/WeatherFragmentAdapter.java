@@ -33,6 +33,8 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
         final String LATITUDE = String.valueOf(lat);
         final String LONGITUDE = String.valueOf(lon);
 
+        final FileHandler fileHandler = new FileHandler();
+
         apiKey = mainActivity.getString(R.string.api_key);
 
         Thread t = new Thread(new Runnable(){
@@ -40,12 +42,13 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
             public void run(){
                 try {
                     JSONObject json;
-                    if (FileHandler.checkIfFileExists(mainActivity, FILE_NAME) && FileHandler.fileModifyDate(mainActivity, FILE_NAME)){
-                        json = FileHandler.readFile(mainActivity, FILE_NAME);
+                    if (fileHandler.checkIfFileExists(mainActivity, FILE_NAME)
+                            && fileHandler.fileModifyDate(mainActivity, FILE_NAME)){
+                        json = fileHandler.readFile(mainActivity, FILE_NAME);
                     }
                     else {
                         json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
-                        FileHandler.createFile(mainActivity, json, FILE_NAME);
+                        fileHandler.createFile(mainActivity, json, FILE_NAME);
                     }
                     StringHandler stringHandler = new StringHandler(mainActivity, json);
                     currentWeather = stringHandler.currentWeather;
