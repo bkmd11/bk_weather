@@ -1,6 +1,7 @@
 package com.bkendall.bk_weather;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,25 +16,48 @@ import java.util.regex.Pattern;
 
 // I build strings for textViews
 public class StringHandler {
+    String currentWeather;
+    String hrByHr;
+    String futureForecast;
+    String alertString;
+    String alertType;
+    Context context;
+
+    public StringHandler(Context mainContext, JSONObject jsonObject) throws JSONException {
+        context = mainContext;
+        currentWeather = setCurrentWeatherString(jsonObject.getJSONObject(context.getString(R.string.weather_now)),
+                context.getString(R.string.current_weather));
+        hrByHr = setHourByHourString(jsonObject.getJSONArray(context.getString(R.string.hourly)),
+                context.getString(R.string.hr_by_hr_forecast));
+        futureForecast = setFutureForecastString(jsonObject.getJSONArray(context.getString(R.string.daily_weather)),
+                context.getString(R.string.future_forecast));
+        try{
+            alertString = setAlertString(jsonObject.getJSONArray(context.getString(R.string.alert)));
+            alertType = setEventString(jsonObject.getJSONArray(context.getString(R.string.alert)));
+        } catch (JSONException e){
+            alertString = "";
+            alertType = "";
+        }
+    }
 
     @SuppressLint("DefaultLocale")
-    public static String setCurrentWeatherString(JSONObject currentWeather, String weatherString) throws JSONException {
+    private String setCurrentWeatherString(JSONObject currentWeather, String weatherString) throws JSONException {
         // I build the string for the current weather tab
         String description = setConditions(currentWeather);
 
-        String sunrise_time = setDateString(currentWeather.getInt("sunrise"), "EEE MMM dd HH:mm:ss zzz yyyy");
+        String sunrise_time = setDateString(currentWeather.getInt(context.getString(R.string.rise)), context.getString(R.string.timeFormat));
         String sunrise = getTimeRegex(sunrise_time);
 
-        String sunset_time = setDateString(currentWeather.getInt("sunset"), "EEE MMM dd HH:mm:ss zzz yyyy");
+        String sunset_time = setDateString(currentWeather.getInt(context.getString(R.string.set)), context.getString(R.string.timeFormat));
         String sunset = getTimeRegex(sunset_time);
 
-        int temp = setDoubleToInt(currentWeather.getDouble("temp"));
+        int temp = setDoubleToInt(currentWeather.getDouble(context.getString(R.string.temperature)));
 
         return String.format(weatherString, description, temp, sunrise, sunset);
     }
 
     @SuppressLint("DefaultLocale")
-    public static String setHourByHourString(JSONArray hrByHr, String weatherString) throws JSONException {
+    private String setHourByHourString(JSONArray hrByHr, String weatherString) throws JSONException {
         // I loop through a JSONArray to build an hour by hour string
         String hrByHrForecastString = "";
 
@@ -44,12 +68,12 @@ public class StringHandler {
 
         for (i = 0; i < 24; i++) {
             hourlyForecast = hrByHr.getJSONObject(i);
-            unix_time = hourlyForecast.getInt("dt");
+            unix_time = hourlyForecast.getInt(context.getString(R.string.dateTime));
 
-            String hour = setDateString(unix_time, "EEE MMM dd HH:mm:ss zzz yyyy");
+            String hour = setDateString(unix_time, context.getString(R.string.timeFormat));
 
             String hourString = getTimeRegex(hour);
-            int temp_int = setDoubleToInt(hourlyForecast.getDouble("temp"));
+            int temp_int = setDoubleToInt(hourlyForecast.getDouble(context.getString(R.string.temperature)));
 
             String conditions = setConditions(hourlyForecast);
 
@@ -60,7 +84,7 @@ public class StringHandler {
     }
 
     @SuppressLint("DefaultLocale")
-    public static String setFutureForecastString(JSONArray futureForecast, String weatherString) throws JSONException {
+    private String setFutureForecastString(JSONArray futureForecast, String weatherString) throws JSONException {
         // I loop through a JSONArray to build a daily forecast string
         String futureForecastString = "";
 
@@ -71,13 +95,13 @@ public class StringHandler {
 
         for (i = 0; i < 7; i++) {
             dailyForecast = futureForecast.getJSONObject(i);
-            unix_time = dailyForecast.getInt("dt");
+            unix_time = dailyForecast.getInt(context.getString(R.string.dateTime));
 
-            String weekday = setDateString(unix_time, "EEEE");
+            String weekday = setDateString(unix_time, context.getString(R.string.dayFormat));
 
-            JSONObject temp = dailyForecast.getJSONObject("temp");
-            int max_temp = setDoubleToInt(temp.getDouble("max"));
-            int min_temp = setDoubleToInt(temp.getDouble("min"));
+            JSONObject temp = dailyForecast.getJSONObject(context.getString(R.string.temperature));
+            int max_temp = setDoubleToInt(temp.getDouble(context.getString(R.string.highTemp)));
+            int min_temp = setDoubleToInt(temp.getDouble(context.getString(R.string.lowTemp)));
 
             String conditions = setConditions(dailyForecast);
 
@@ -87,17 +111,17 @@ public class StringHandler {
         return futureForecastString;
     }
 
-    public static String setAlertString(JSONArray alertForecast) throws JSONException {
+    private String setAlertString(JSONArray alertForecast) throws JSONException{
         // I return a string of the alert message
         JSONObject alert = alertForecast.getJSONObject(0);
 
-        return alert.getString("description").concat("\n");
+        return alert.getString(context.getString(R.string.description)).concat("\n");
     }
 
-    public static String setEventString(JSONArray alertForecast) throws JSONException {
+    private String setEventString(JSONArray alertForecast) throws JSONException {
         JSONObject alert = alertForecast.getJSONObject(0);
 
-        return alert.getString("event");
+        return alert.getString(context.getString(R.string.event));
     }
 
     public static String setConditions(JSONObject weather) throws JSONException {

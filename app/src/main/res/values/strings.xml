@@ -27,6 +27,11 @@
     <string name="lowTemp">min</string>
     <string name="dateTime">dt</string>
     <string name="event">event</string>
+    <string name="rise">sunrise</string>
+    <string name="set">sunset</string>
+
+    <string name="timeFormat">EEE MMM dd HH:mm:ss zzz yyyy</string>
+    <string name="dayFormat">EEEE</string>
 
     <!-- Strings for some error messages -->
     <string name="gps_error">ERROR:\nNo GPS data\nTry again later!</string>
