@@ -1,4 +1,4 @@
-import com.bkendall.bk_weather.StringHandler;
+package com.bkendall.bk_weather;
 
 import org.junit.Assert;
 import org.junit.Test;

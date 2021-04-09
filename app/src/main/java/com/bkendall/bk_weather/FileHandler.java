@@ -25,9 +25,9 @@ public class FileHandler {
         bufferedWriter.close();
     }
 
-    public JSONObject readFile(Context context, String fileName) throws IOException, JSONException {
+    public JSONObject readFile(String fileName) throws IOException, JSONException {
         // I read the contents of a file and return a JSONObject
-        File file = new File(context.getFilesDir(), fileName);
+        File file = new File(fileName);
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         StringBuilder stringBuilder = new StringBuilder();
@@ -41,16 +41,15 @@ public class FileHandler {
         return new JSONObject(stringBuilder.toString());
     }
 
-    public boolean checkIfFileExists(Context context, String fileName) {
+    public boolean checkIfFileExists(String path) {
         // I check to see if a file already exists
-        String path = context.getFilesDir().getAbsolutePath() + "/" + fileName;
         File file = new File(path);
         return file.exists();
     }
 
-    public boolean fileModifyDate(Context context, String fileName) {
+    public boolean fileModifyDate(String fileName) {
         // I check to see if a file is older than 15 minutes
-        File file = new File(context.getFilesDir(), fileName);
+        File file = new File(fileName);
         Date now = new Date();
         long time = now.getTime();
 

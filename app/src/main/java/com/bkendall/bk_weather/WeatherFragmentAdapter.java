@@ -42,9 +42,12 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
             public void run(){
                 try {
                     JSONObject json;
-                    if (fileHandler.checkIfFileExists(mainActivity, FILE_NAME)
-                            && fileHandler.fileModifyDate(mainActivity, FILE_NAME)){
-                        json = fileHandler.readFile(mainActivity, FILE_NAME);
+
+                    String filePath = mainActivity.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
+
+                    if (fileHandler.checkIfFileExists(filePath)
+                            && fileHandler.fileModifyDate(filePath)){
+                        json = fileHandler.readFile(filePath);
                     }
                     else {
                         json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
