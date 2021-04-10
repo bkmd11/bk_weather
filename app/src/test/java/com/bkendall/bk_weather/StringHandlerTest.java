@@ -3,7 +3,7 @@ package com.bkendall.bk_weather;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestStringHandler {
+public class StringHandlerTest {
     @Test
     public void testSetFirstLetterCap(){
         String result = StringHandler.setFirstLetterCap("spam");

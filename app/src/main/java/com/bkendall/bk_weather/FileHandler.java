@@ -1,7 +1,5 @@
 package com.bkendall.bk_weather;
 
-import android.content.Context;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,14 +12,12 @@ import java.io.IOException;
 import java.util.Date;
 
 public class FileHandler {
-    public void createFile(Context context, JSONObject jsonObject, String fileName) throws IOException {
+    public void createFile(String fileName, String jsonObjectString) throws IOException {
         // I create a file in the App memory
-        String userString = jsonObject.toString();
-
-        File file = new File(context.getFilesDir(), fileName);
+        File file = new File(fileName);
         FileWriter fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(userString);
+        bufferedWriter.write(jsonObjectString);
         bufferedWriter.close();
     }
 

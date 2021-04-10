@@ -51,7 +51,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                     }
                     else {
                         json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
-                        fileHandler.createFile(mainActivity, json, FILE_NAME);
+                        fileHandler.createFile(filePath, json.toString());
                     }
                     StringHandler stringHandler = new StringHandler(mainActivity, json);
                     currentWeather = stringHandler.currentWeather;
