@@ -1,8 +1,5 @@
 package com.bkendall.bk_weather;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,10 +18,9 @@ public class FileHandler {
         bufferedWriter.close();
     }
 
-    public JSONObject readFile(String fileName) throws IOException, JSONException {
+    public String readFile(File fileName) throws IOException {
         // I read the contents of a file and return a JSONObject
-        File file = new File(fileName);
-        FileReader fileReader = new FileReader(file);
+        FileReader fileReader = new FileReader(fileName);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         StringBuilder stringBuilder = new StringBuilder();
         String line = bufferedReader.readLine();
@@ -34,7 +30,7 @@ public class FileHandler {
         }
         bufferedReader.close();
 
-        return new JSONObject(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 
     public boolean checkIfFileExists(String path) {

@@ -1,16 +1,18 @@
 package com.bkendall.bk_weather;
 
-import org.json.JSONException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 
 public class FileHandlerTest {
     FileHandler fh = new FileHandler();
-    @Test
-    public void testCreateFile() throws JSONException {
+
+    @Before
+    public void testCreateFile() {
         try {
             fh.createFile("src\\test\\java\\com\\bkendall\\bk_weather\\spam.json",
                     "{\"lat\":0,\"lon\":0,\"timezone\":\"Etc\\/GMT\\");
@@ -26,12 +28,21 @@ public class FileHandlerTest {
 
     @Test
     public void testFileModifyDateOldFile(){
-        // TODO: Watch this test to see if it still doesnt pass. Should find a better way to test
-        Assert.assertTrue(fh.fileModifyDate("src\\test\\java\\com\\bkendall\\bk_weather\\test.json"));
+        Assert.assertFalse(fh.fileModifyDate("src\\test\\java\\com\\bkendall\\bk_weather\\test.json"));
     }
 
     @Test
     public void testFileModifyDateNewFile(){
         Assert.assertTrue(fh.fileModifyDate("src\\test\\java\\com\\bkendall\\bk_weather\\spam.json"));
+    }
+
+    @Test
+    public void testReadFile(){
+        try {
+            Assert.assertEquals("{\"lat\":0,\"lon\":0,\"timezone\":\"Etc\\/GMT\\\n",
+                    fh.readFile(new File("src\\test\\java\\com\\bkendall\\bk_weather\\spam.json")));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 }

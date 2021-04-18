@@ -10,6 +10,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 
 public class WeatherFragmentAdapter extends FragmentStateAdapter {
@@ -47,7 +48,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
 
                     if (fileHandler.checkIfFileExists(filePath)
                             && fileHandler.fileModifyDate(filePath)){
-                        json = fileHandler.readFile(filePath);
+                        json = new JSONObject(fileHandler.readFile(new File(filePath)));
                     }
                     else {
                         json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
@@ -60,17 +61,15 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                     alertType = stringHandler.alertType;
                     alert = stringHandler.alertString;
 
-
                 } catch (JSONException e) {
                     currentWeather = mainActivity.getString(R.string.unexpected_error);
                     hrByHr = mainActivity.getString(R.string.unexpected_error);
                     futureForecast = mainActivity.getString(R.string.unexpected_error);
-                    e.printStackTrace();
+
                 } catch (IOException e) {
                     currentWeather = mainActivity.getString(R.string.unexpected_error);
                     hrByHr = mainActivity.getString(R.string.unexpected_error);
                     futureForecast = mainActivity.getString(R.string.unexpected_error);
-                    e.printStackTrace();
                 }
             }
         });
