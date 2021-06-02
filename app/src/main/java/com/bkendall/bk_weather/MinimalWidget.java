@@ -1,11 +1,14 @@
 package com.bkendall.bk_weather;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.widget.RemoteViews;
 
 import org.json.JSONException;
@@ -50,7 +53,8 @@ public class MinimalWidget extends AppWidgetProvider {
         final FileHandler fileHandler = new FileHandler();
         final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
-        if (!fileHandler.checkIfFileExists(filePath) || fileHandler.fileModifyDate(filePath)) {
+        // Checks if the file doesn't exist OR if it is older than fifteen minutes, if True, the thread starts
+        if (!fileHandler.checkIfFileExists(filePath) || !fileHandler.fileModifyDate(filePath)) {
             apiKey = context.getString(R.string.api_key);
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -59,7 +63,7 @@ public class MinimalWidget extends AppWidgetProvider {
                         JSONObject json;
 
                         String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
-                        json = FetchWeather.getForecast("0", "0", apiKey);
+                        json = FetchWeather.getForecast(setLatitude(context), setLongitude(context), apiKey);
                         fileHandler.createFile(filePath, json.toString());
 
                     } catch (IOException | JSONException e) {
@@ -80,5 +84,32 @@ public class MinimalWidget extends AppWidgetProvider {
         }
 
         return temp;
+    }
+
+    private static double setLatitude(Context context){
+        // I set latitude for the api call. Null Island is default
+        try {
+            LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            assert lm != null;
+            @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
+
+            assert location != null;
+            return location.getLatitude();
+        } catch (NullPointerException e) {
+            return 0;
+        }
+    }
+    private static double setLongitude(Context context){
+        // I set longitude for the api call. Null Island is default
+        try {
+            LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            assert lm != null;
+            @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
+
+            assert location != null;
+            return location.getLongitude();
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 }

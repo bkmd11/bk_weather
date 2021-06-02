@@ -31,8 +31,8 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
         super(fragmentActivity);
 
         final String FILE_NAME = String.valueOf(R.string.fileName);
-        final String LATITUDE = String.valueOf(lat);
-        final String LONGITUDE = String.valueOf(lon);
+        final double LATITUDE = lat;
+        final double LONGITUDE = lon;
 
         final FileHandler fileHandler = new FileHandler();
 
@@ -46,6 +46,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
 
                     String filePath = mainActivity.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
+                    // Checks if the file exists and is less than 15 minutes old. If both are correct, the code runs
                     if (fileHandler.checkIfFileExists(filePath)
                             && fileHandler.fileModifyDate(filePath)){
                         json = new JSONObject(fileHandler.readFile(new File(filePath)));
