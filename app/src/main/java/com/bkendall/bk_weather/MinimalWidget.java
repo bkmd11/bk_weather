@@ -16,19 +16,17 @@ import java.io.IOException;
 
 import static com.bkendall.bk_weather.StringHandler.setDoubleToInt;
 
-/**
- * Implementation of App Widget functionality.
- */
+
 public class MinimalWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        System.out.println("WIDGET");
+        // I run on launch and every 30 minutes to update the widget
         CharSequence widgetText = null;
         try {
             widgetText = setTempString(context);
         } catch (InterruptedException e) {
-            widgetText = "SEX";
+            widgetText = "XXX";
         }
 
         Intent intent = new Intent(context, MainActivity.class);   // This intent is what launches the app onClick
@@ -43,6 +41,8 @@ public class MinimalWidget extends AppWidgetProvider {
     }
 
     private static String setTempString(final Context context) throws InterruptedException {
+        // I launch am what parses the data. I have the power to launch a thread if the saved data
+        // is old or non existent
         JSONObject json;
         String temp;
         final String apiKey;
@@ -50,7 +50,8 @@ public class MinimalWidget extends AppWidgetProvider {
         final FileHandler fileHandler = new FileHandler();
         final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
-        if (!fileHandler.checkIfFileExists(filePath)) {
+        if (!fileHandler.checkIfFileExists(filePath) && fileHandler.fileModifyDate(filePath)) {
+            System.out.println("YAYYYY");
             apiKey = context.getString(R.string.api_key);
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -60,7 +61,7 @@ public class MinimalWidget extends AppWidgetProvider {
 
                         String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
                         json = FetchWeather.getForecast("0", "0", apiKey);
-                       // fileHandler.createFile(filePath, json.toString());
+                        fileHandler.createFile(filePath, json.toString());
 
                     } catch (IOException | JSONException e) {
                         // Do nothing, continue to next catch

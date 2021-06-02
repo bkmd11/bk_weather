@@ -39,7 +39,5 @@
 
     <!-- File name -->
     <string name="fileName">weather_data.json</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
 
 </resources>

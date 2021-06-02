@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setForecastViews(){
-
+        // I build out the tabs and view pager to show forecasts
         // Tab titles
         String current_weather = getString(R.string.current);
         String hr_by_hr = getString(R.string.hr_by_hr);
@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setCoordinates(){
+        // I set coordinates for the api call. Null Island is default
         try {
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             assert lm != null;
