@@ -14,7 +14,9 @@
         android:orientation="horizontal"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:gravity="center">
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
     </TextView>
 
 </FrameLayout>

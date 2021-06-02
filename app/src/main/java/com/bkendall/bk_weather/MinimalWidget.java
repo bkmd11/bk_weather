@@ -1,8 +1,11 @@
 package com.bkendall.bk_weather;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import org.json.JSONException;
@@ -18,38 +21,64 @@ import static com.bkendall.bk_weather.StringHandler.setDoubleToInt;
  */
 public class MinimalWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(final Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        System.out.println("WIDGET");
+        CharSequence widgetText = null;
+        try {
+            widgetText = setTempString(context);
+        } catch (InterruptedException e) {
+            widgetText = "SEX";
+        }
+
+        Intent intent = new Intent(context, MainActivity.class);   // This intent is what launches the app onClick
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.minimal_widget);
+        ComponentName watchWidget = new ComponentName(context, MinimalWidget.class);
+
+        views.setOnClickPendingIntent(R.id.widgetText, pendingIntent);
+        views.setTextViewText(R.id.widgetText, widgetText);
+
+        appWidgetManager.updateAppWidget(watchWidget, views);
+    }
+
+    private static String setTempString(final Context context) throws InterruptedException {
         JSONObject json;
-        int temp;
+        String temp;
+        final String apiKey;
         final String FILE_NAME = String.valueOf(R.string.fileName);
         final FileHandler fileHandler = new FileHandler();
-        String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
+        final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
         if (!fileHandler.checkIfFileExists(filePath)) {
-            System.out.println("FIX ME");
+            apiKey = context.getString(R.string.api_key);
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        JSONObject json;
+
+                        String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
+                        json = FetchWeather.getForecast("0", "0", apiKey);
+                       // fileHandler.createFile(filePath, json.toString());
+
+                    } catch (IOException | JSONException e) {
+                        // Do nothing, continue to next catch
+                    }
+                }
+            });
+            t.start();
+            t.join();
         }
         try {
             json = new JSONObject(fileHandler.readFile(new File(filePath)));
             JSONObject currentWeather = json.getJSONObject("current");
-            temp = setDoubleToInt(currentWeather.getDouble("temp"));
+            temp = String.valueOf(setDoubleToInt(currentWeather.getDouble("temp")));
 
         }catch (IOException | JSONException e){
-            temp = 666;
+            temp = "XXX";
         }
-        CharSequence widgetText = String.valueOf(temp);
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.minimal_widget);
-        views.setTextViewText(R.id.widgetText, widgetText);
 
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+        return temp;
     }
 }
