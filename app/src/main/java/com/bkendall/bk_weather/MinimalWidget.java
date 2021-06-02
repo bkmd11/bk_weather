@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +22,8 @@ import static com.bkendall.bk_weather.StringHandler.setDoubleToInt;
 
 
 public class MinimalWidget extends AppWidgetProvider {
+
+    public static final String ACTION_AUTO_UPDATE = "AUTO_UPDATE";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -39,9 +42,32 @@ public class MinimalWidget extends AppWidgetProvider {
 
         views.setOnClickPendingIntent(R.id.widgetText, pendingIntent);
         views.setTextViewText(R.id.widgetText, widgetText);
-
+        Toast.makeText(context, "YAYAA", Toast.LENGTH_LONG).show();
         appWidgetManager.updateAppWidget(watchWidget, views);
     }
+
+//    @Override
+//    public void onEnabled(Context context)
+//    {
+//        // start alarm
+//        AppWidgetAlarm appWidgetAlarm = new AppWidgetAlarm(context.getApplicationContext());
+//        appWidgetAlarm.startAlarm();
+//    }
+//
+//    @Override
+//    public void onDisabled(Context context)
+//    {
+//        // stop alarm only if all widgets have been disabled
+//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+//        ComponentName thisAppWidgetComponentName = new ComponentName(context.getPackageName(),getClass().getName());
+//        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidgetComponentName);
+//        if (appWidgetIds.length == 0) {
+//            // stop alarm
+//            AppWidgetAlarm appWidgetAlarm = new AppWidgetAlarm(context.getApplicationContext());
+//            appWidgetAlarm.stopAlarm();
+//        }
+//
+//    }
 
     private static String setTempString(final Context context) throws InterruptedException {
         // I launch am what parses the data. I have the power to launch a thread if the saved data
