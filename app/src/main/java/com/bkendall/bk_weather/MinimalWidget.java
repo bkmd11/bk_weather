@@ -50,8 +50,7 @@ public class MinimalWidget extends AppWidgetProvider {
         final FileHandler fileHandler = new FileHandler();
         final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
-        if (!fileHandler.checkIfFileExists(filePath) && fileHandler.fileModifyDate(filePath)) {
-            System.out.println("YAYYYY");
+        if (!fileHandler.checkIfFileExists(filePath) || fileHandler.fileModifyDate(filePath)) {
             apiKey = context.getString(R.string.api_key);
             Thread t = new Thread(new Runnable() {
                 @Override
