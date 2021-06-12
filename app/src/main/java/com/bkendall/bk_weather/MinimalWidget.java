@@ -23,7 +23,6 @@ import static com.bkendall.bk_weather.StringHandler.setDoubleToInt;
 //TODO: resource files don't work right in this
 public class MinimalWidget extends AppWidgetProvider {
 
-    public static final String ACTION_AUTO_UPDATE = "AUTO_UPDATE";
     final String FILE_NAME = String.valueOf(R.string.fileName);
     final FileHandler fileHandler = new FileHandler();
 
@@ -109,7 +108,7 @@ public class MinimalWidget extends AppWidgetProvider {
         try {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             assert lm != null;
-            @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
+            @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             assert location != null;
             return location.getLatitude();
@@ -122,7 +121,7 @@ public class MinimalWidget extends AppWidgetProvider {
         try {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             assert lm != null;
-            @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER); // TODO: look to update to get current location
+            @SuppressLint("MissingPermission") Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             assert location != null;
             return location.getLongitude();
@@ -132,6 +131,7 @@ public class MinimalWidget extends AppWidgetProvider {
     }
 
     private boolean setAlertColor(Context context) {
+        // I check to see if there are any alerts
         JSONObject json;
         final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
