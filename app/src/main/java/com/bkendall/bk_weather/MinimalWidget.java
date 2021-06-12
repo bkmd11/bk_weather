@@ -7,10 +7,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,20 +20,29 @@ import java.io.IOException;
 
 import static com.bkendall.bk_weather.StringHandler.setDoubleToInt;
 
-
+//TODO: resource files don't work right in this
 public class MinimalWidget extends AppWidgetProvider {
 
     public static final String ACTION_AUTO_UPDATE = "AUTO_UPDATE";
+    final String FILE_NAME = String.valueOf(R.string.fileName);
+    final FileHandler fileHandler = new FileHandler();
+
+    CharSequence widgetText;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // I run on launch and every 30 minutes to update the widget
-        CharSequence widgetText = null;
-        try {
-            widgetText = setTempString(context);
-        } catch (InterruptedException e) {
-            widgetText = "XXX";
+        final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
+
+        if (!fileHandler.checkIfFileExists(filePath) || !fileHandler.fileModifyDate(filePath)) {
+            try {
+                runApiCall(context);
+            } catch (InterruptedException e) {
+                // DO nothing
+            }
         }
+
+        widgetText = setTempString(context);
 
         Intent intent = new Intent(context, MainActivity.class);   // This intent is what launches the app onClick
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
@@ -41,65 +50,48 @@ public class MinimalWidget extends AppWidgetProvider {
         ComponentName watchWidget = new ComponentName(context, MinimalWidget.class);
 
         views.setOnClickPendingIntent(R.id.widgetText, pendingIntent);
+        System.out.println(setAlertColor(context));
+        if (setAlertColor(context)){
+            views.setInt(R.id.minimalWidget, "setBackgroundColor", Color.RED);
+        }
+
         views.setTextViewText(R.id.widgetText, widgetText);
-        Toast.makeText(context, "YAYAA", Toast.LENGTH_LONG).show();
+
         appWidgetManager.updateAppWidget(watchWidget, views);
     }
 
-//    @Override
-//    public void onEnabled(Context context)
-//    {
-//        // start alarm
-//        AppWidgetAlarm appWidgetAlarm = new AppWidgetAlarm(context.getApplicationContext());
-//        appWidgetAlarm.startAlarm();
-//    }
-//
-//    @Override
-//    public void onDisabled(Context context)
-//    {
-//        // stop alarm only if all widgets have been disabled
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//        ComponentName thisAppWidgetComponentName = new ComponentName(context.getPackageName(),getClass().getName());
-//        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidgetComponentName);
-//        if (appWidgetIds.length == 0) {
-//            // stop alarm
-//            AppWidgetAlarm appWidgetAlarm = new AppWidgetAlarm(context.getApplicationContext());
-//            appWidgetAlarm.stopAlarm();
-//        }
-//
-//    }
+    private void runApiCall(final Context context) throws InterruptedException {
+        final String apiKey;
 
-    private static String setTempString(final Context context) throws InterruptedException {
+        apiKey = context.getString(R.string.api_key);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject json;
+
+                    String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
+
+                    json = FetchWeather.getForecast(setLatitude(context), setLongitude(context), apiKey);
+                    fileHandler.createFile(filePath, json.toString());
+
+                } catch (IOException | JSONException e) {
+                    // Do nothing, continue to next catch
+                }
+            }
+        });
+        t.start();
+        t.join();
+        }
+
+
+    private String setTempString(final Context context) {
         // I launch am what parses the data. I have the power to launch a thread if the saved data
         // is old or non existent
         JSONObject json;
         String temp;
-        final String apiKey;
-        final String FILE_NAME = String.valueOf(R.string.fileName);
-        final FileHandler fileHandler = new FileHandler();
         final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
-        // Checks if the file doesn't exist OR if it is older than fifteen minutes, if True, the thread starts
-        if (!fileHandler.checkIfFileExists(filePath) || !fileHandler.fileModifyDate(filePath)) {
-            apiKey = context.getString(R.string.api_key);
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONObject json;
-
-                        String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
-                        json = FetchWeather.getForecast(setLatitude(context), setLongitude(context), apiKey);
-                        fileHandler.createFile(filePath, json.toString());
-
-                    } catch (IOException | JSONException e) {
-                        // Do nothing, continue to next catch
-                    }
-                }
-            });
-            t.start();
-            t.join();
-        }
         try {
             json = new JSONObject(fileHandler.readFile(new File(filePath)));
             JSONObject currentWeather = json.getJSONObject("current");
@@ -136,6 +128,21 @@ public class MinimalWidget extends AppWidgetProvider {
             return location.getLongitude();
         } catch (NullPointerException e) {
             return 0;
+        }
+    }
+
+    private boolean setAlertColor(Context context) {
+        JSONObject json;
+        final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
+
+        try {
+            json = new JSONObject(fileHandler.readFile(new File(filePath)));
+            json.getJSONArray("alerts");
+
+            return true;
+        } catch (IOException | JSONException e) {
+
+            return false;
         }
     }
 }

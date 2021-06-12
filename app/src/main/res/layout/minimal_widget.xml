@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout android:layout_width="match_parent"
+    android:id="@+id/minimalWidget"
     android:layout_height="match_parent"
     android:padding="8dp"
     android:background="@color/colorPrimary"

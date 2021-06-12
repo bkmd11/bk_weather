@@ -19,7 +19,6 @@ public class AppWidgetAlarm
         mContext = context;
     }
 
-
     public void startAlarm()
     {
         Calendar calendar = Calendar.getInstance();
