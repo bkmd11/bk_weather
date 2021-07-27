@@ -47,21 +47,27 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
                     String filePath = mainActivity.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
                     // Checks if the file exists and is less than 15 minutes old. If both are correct, the code runs
-                    if (fileHandler.checkIfFileExists(filePath)
-                            && fileHandler.fileModifyDate(filePath)){
-                        json = new JSONObject(fileHandler.readFile(new File(filePath)));
+                    if (LATITUDE==0 && LONGITUDE==0) {
+                        currentWeather = mainActivity.getString(R.string.gps_error);
+                        hrByHr = mainActivity.getString(R.string.gps_error);
+                        futureForecast = mainActivity.getString(R.string.gps_error);
+                        alert = "";
                     }
                     else {
-                        json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
-                        fileHandler.createFile(filePath, json.toString());
+                        if (fileHandler.checkIfFileExists(filePath)
+                                && fileHandler.fileModifyDate(filePath)) {
+                            json = new JSONObject(fileHandler.readFile(new File(filePath)));
+                        } else {
+                            json = FetchWeather.getForecast(LATITUDE, LONGITUDE, apiKey);
+                            fileHandler.createFile(filePath, json.toString());
+                        }
+                        StringHandler stringHandler = new StringHandler(mainActivity, json);
+                        currentWeather = stringHandler.currentWeather;
+                        hrByHr = stringHandler.hrByHr;
+                        futureForecast = stringHandler.futureForecast;
+                        alertType = stringHandler.alertType;
+                        alert = stringHandler.alertString;
                     }
-                    StringHandler stringHandler = new StringHandler(mainActivity, json);
-                    currentWeather = stringHandler.currentWeather;
-                    hrByHr = stringHandler.hrByHr;
-                    futureForecast = stringHandler.futureForecast;
-                    alertType = stringHandler.alertType;
-                    alert = stringHandler.alertString;
-
                 } catch (JSONException e) {
                     currentWeather = mainActivity.getString(R.string.unexpected_error);
                     hrByHr = mainActivity.getString(R.string.unexpected_error);
