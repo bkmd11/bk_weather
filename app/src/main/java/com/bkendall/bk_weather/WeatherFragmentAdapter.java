@@ -30,7 +30,7 @@ public class WeatherFragmentAdapter extends FragmentStateAdapter {
          */
         super(fragmentActivity);
 
-        final String FILE_NAME = String.valueOf(R.string.fileName);
+        final String FILE_NAME = mainActivity.getString(R.string.fileName);
         final double LATITUDE = lat;
         final double LONGITUDE = lon;
 
