@@ -33,7 +33,8 @@
         </activity>
         <activity
             android:name=".AlertActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+            android:configChanges="orientation|screenSize|keyboardHidden">
+        </activity>
     </application>
 
 </manifest>
