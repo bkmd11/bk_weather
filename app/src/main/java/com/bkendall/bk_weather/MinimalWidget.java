@@ -49,7 +49,7 @@ public class MinimalWidget extends AppWidgetProvider {
         ComponentName watchWidget = new ComponentName(context, MinimalWidget.class);
 
         views.setOnClickPendingIntent(R.id.widgetText, pendingIntent);
-        System.out.println(setAlertColor(context));
+
         if (setAlertColor(context)){
             views.setInt(R.id.minimalWidget, "setBackgroundColor", Color.RED);
         }
@@ -92,6 +92,7 @@ public class MinimalWidget extends AppWidgetProvider {
         final String filePath = context.getFilesDir().getAbsolutePath() + "/" + FILE_NAME;
 
         try {
+
             json = new JSONObject(fileHandler.readFile(new File(filePath)));
             JSONObject currentWeather = json.getJSONObject("current");
             temp = String.valueOf(setDoubleToInt(currentWeather.getDouble("temp")));
