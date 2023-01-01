@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//TODO: set view builder things so they happen in order, not always the case
 
 // I build strings for textViews
 public class StringHandler {
