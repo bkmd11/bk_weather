@@ -52,8 +52,9 @@ public class StringHandler {
         String sunset = getTimeRegex(sunset_time);
 
         int temp = setDoubleToInt(currentWeather.getDouble(context.getString(R.string.temperature)));
+        int wind_speed = setDoubleToInt(currentWeather.getDouble(context.getString(R.string.wind_speed)));
 
-        return String.format(weatherString, description, temp, sunrise, sunset);
+        return String.format(weatherString, description, temp, sunrise, sunset, wind_speed);
     }
 
     @SuppressLint("DefaultLocale")
@@ -77,7 +78,9 @@ public class StringHandler {
 
             String conditions = setConditions(hourlyForecast);
 
-            hrByHrForecastString = hrByHrForecastString.concat(String.format(weatherString, hourString, conditions, temp_int));
+            int wind_speed = setDoubleToInt(hourlyForecast.getDouble(context.getString(R.string.wind_speed)));
+
+            hrByHrForecastString = hrByHrForecastString.concat(String.format(weatherString, hourString, conditions, temp_int, wind_speed));
         }
 
         return hrByHrForecastString;
@@ -105,7 +108,9 @@ public class StringHandler {
 
             String conditions = setConditions(dailyForecast);
 
-            futureForecastString = futureForecastString.concat(String.format(weatherString, weekday, conditions, max_temp, min_temp));
+            int wind_speed = setDoubleToInt(dailyForecast.getDouble(context.getString(R.string.wind_speed)));
+
+            futureForecastString = futureForecastString.concat(String.format(weatherString, weekday, conditions, max_temp, min_temp, wind_speed));
         }
 
         return futureForecastString;
