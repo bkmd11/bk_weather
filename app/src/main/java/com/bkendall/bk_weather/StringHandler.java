@@ -93,8 +93,9 @@ public class StringHandler {
             String conditions = setConditions(hourlyForecast);
 
             int wind_speed = setDoubleToInt(hourlyForecast.getDouble(context.getString(R.string.wind_speed)));
+            String wind_direction = convertDirectionToCompass(hourlyForecast.getDouble(context.getString(R.string.wind_deg)));
 
-            hrByHrForecastString = hrByHrForecastString.concat(String.format(weatherString, hourString, conditions, temp_int, wind_speed));
+            hrByHrForecastString = hrByHrForecastString.concat(String.format(weatherString, hourString, conditions, temp_int, wind_speed, wind_direction));
         }
 
         return hrByHrForecastString;
@@ -123,8 +124,9 @@ public class StringHandler {
             String conditions = setConditions(dailyForecast);
 
             int wind_speed = setDoubleToInt(dailyForecast.getDouble(context.getString(R.string.wind_speed)));
+            String wind_direction = convertDirectionToCompass(dailyForecast.getDouble(context.getString(R.string.wind_deg)));
 
-            futureForecastString = futureForecastString.concat(String.format(weatherString, weekday, conditions, max_temp, min_temp, wind_speed));
+            futureForecastString = futureForecastString.concat(String.format(weatherString, weekday, conditions, max_temp, min_temp, wind_speed, wind_direction));
         }
 
         return futureForecastString;
