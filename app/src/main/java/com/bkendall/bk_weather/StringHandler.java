@@ -24,6 +24,17 @@ public class StringHandler {
     String alertType;
     Context context;
 
+    enum CPoint {
+        N,
+        NE,
+        E,
+        SE,
+        S,
+        SW,
+        W,
+        NW
+    }
+
     public StringHandler(Context mainContext, JSONObject jsonObject) throws JSONException {
         context = mainContext;
         currentWeather = setCurrentWeatherString(jsonObject.getJSONObject(context.getString(R.string.weather_now)),
@@ -55,7 +66,9 @@ public class StringHandler {
         int temp = setDoubleToInt(currentWeather.getDouble(context.getString(R.string.temperature)));
         int wind_speed = setDoubleToInt(currentWeather.getDouble(context.getString(R.string.wind_speed)));
 
-        return String.format(weatherString, description, temp, sunrise, sunset, wind_speed);
+        String wind_direction = convertDirectionToCompass(currentWeather.getDouble(context.getString(R.string.wind_deg)));
+
+        return String.format(weatherString, description, temp, sunrise, sunset, wind_speed, wind_direction);
     }
 
     @SuppressLint("DefaultLocale")
@@ -188,5 +201,20 @@ public class StringHandler {
         time = hours + time.substring(2, 5) + " " + am_pm;
 
         return time;
+    }
+
+    public static String convertDirectionToCompass(double windDeg) {
+        //I take a degree direction and convert it into one of 8 (find this in enum CPoint) compass points
+
+        int wind_deg = setDoubleToInt(windDeg);
+        final int divisor = 360 / CPoint.values().length;
+
+        final int coci = wind_deg / divisor;
+        final int resto = wind_deg % divisor;
+        if (resto <= divisor / 2) {
+            return CPoint.values()[coci % CPoint.values().length].name();
+        } else {
+            return CPoint.values()[(coci + 1) % CPoint.values().length].name();
+        }
     }
 }
