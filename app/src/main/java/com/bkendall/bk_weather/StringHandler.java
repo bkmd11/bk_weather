@@ -13,7 +13,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//TODO: set view builder things so they happen in order, not always the case
 
 // I build strings for textViews
 public class StringHandler {
@@ -24,16 +23,7 @@ public class StringHandler {
     String alertType;
     Context context;
 
-    enum CPoint {
-        N,
-        NE,
-        E,
-        SE,
-        S,
-        SW,
-        W,
-        NW
-    }
+    enum CPoint {N, NE, E, SE, S, SW, W, NW}
 
     public StringHandler(Context mainContext, JSONObject jsonObject) throws JSONException {
         context = mainContext;
@@ -88,11 +78,13 @@ public class StringHandler {
             String hour = setDateString(unix_time, context.getString(R.string.timeFormat));
 
             String hourString = getTimeRegex(hour);
-            int temp_int = setDoubleToInt(hourlyForecast.getDouble(context.getString(R.string.temperature)));
 
             String conditions = setConditions(hourlyForecast);
 
+            int temp_int = setDoubleToInt(hourlyForecast.getDouble(context.getString(R.string.temperature)));
+
             int wind_speed = setDoubleToInt(hourlyForecast.getDouble(context.getString(R.string.wind_speed)));
+
             String wind_direction = convertDirectionToCompass(hourlyForecast.getDouble(context.getString(R.string.wind_deg)));
 
             hrByHrForecastString = hrByHrForecastString.concat(String.format(weatherString, hourString, conditions, temp_int, wind_speed, wind_direction));
@@ -117,11 +109,11 @@ public class StringHandler {
 
             String weekday = setDateString(unix_time, context.getString(R.string.dayFormat));
 
+            String conditions = setConditions(dailyForecast);
+
             JSONObject temp = dailyForecast.getJSONObject(context.getString(R.string.temperature));
             int max_temp = setDoubleToInt(temp.getDouble(context.getString(R.string.highTemp)));
             int min_temp = setDoubleToInt(temp.getDouble(context.getString(R.string.lowTemp)));
-
-            String conditions = setConditions(dailyForecast);
 
             int wind_speed = setDoubleToInt(dailyForecast.getDouble(context.getString(R.string.wind_speed)));
             String wind_direction = convertDirectionToCompass(dailyForecast.getDouble(context.getString(R.string.wind_deg)));
