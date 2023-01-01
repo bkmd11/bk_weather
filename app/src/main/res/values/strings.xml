@@ -10,9 +10,9 @@
     <string name="future_cast">extended</string>
 
     <!-- Strings for displaying on TextViews -->
-    <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\t\t\t\tSunrise: %s\n\t\t\t\tSunset: %s\n\n\t\t\t\tWind Speed: %d mph\n\t\t\t\tWind Direction: %s\n</string>
-    <string name="hr_by_hr_forecast">%s\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\n\t\t\t\tWind Speed: %d mph\n\t\t\t\tWind Direction: %s\n\n</string>
-    <string name="future_forecast">%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d\n\n\t\t\t\tWind Speed: %d mph\n\t\t\t\tWind Direction: %s\n\n</string>
+    <string name="current_weather">Current Weather\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\t\t\t\tSunrise: %s\n\t\t\t\tSunset: %s\n\t\t\t\tWind Speed: %d mph\n\t\t\t\tWind Direction: %s\n</string>
+    <string name="hr_by_hr_forecast">%s\n\t\t\t\t%s\n\t\t\t\tTemp: %d\n\t\t\t\tWind Speed: %d mph\n\t\t\t\tWind Direction: %s\n\n</string>
+    <string name="future_forecast">%s\n\t\t\t\t%s\n\t\t\t\tHigh: %d\n\t\t\t\tLow: %d\n\t\t\t\tWind Speed: %d mph\n\t\t\t\tWind Direction: %s\n\n</string>
 
     <!-- Strings to identify items in JSONObject -->
     <string name="weather_now">current</string>
